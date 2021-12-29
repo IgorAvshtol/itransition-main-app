@@ -1,25 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import { createTheme } from '@mui/material';
+import { ThemeProvider } from '@mui/styles';
+
+import { Main } from './components/Main';
+import { Header } from './components/Header';
+
+
+export const ColorModeContext = React.createContext({
+  toggleColorMode: () => {
+  }
+});
 
 function App() {
+
+  const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+  const colorMode = React.useMemo(
+      () => ({
+        toggleColorMode: () => {
+          setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        },
+      }),
+      [],
+  );
+
+  const theme = React.useMemo(
+      () =>
+          createTheme({
+            palette: {
+              mode,
+            },
+          }),
+      [mode],
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <Header/>
+          <Main/>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
   );
 }
 
