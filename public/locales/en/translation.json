@@ -1,5 +1,15 @@
 {
   "description": {
-    "part1": "Main"
+    "part1": "Main",
+    "part2": "Favorites",
+    "part3": "Sign Up",
+    "part4": "Sign In",
+    "part5": "Fill in to register:",
+    "part6": "First Name",
+    "part7": "E-Mail",
+    "part8": "Password",
+    "part9": "Fill in to enter:",
+    "part10": "Log out",
+    "part11": "Wait..."
   }
 }
