@@ -1,4 +1,4 @@
-import { ActionType, IAuthState, TypesKeys } from '../types';
+import { ActionType, IAuthState, TypesKeys } from './authTypes';
 
 const initialState: IAuthState = {
   user: null,

@@ -4,33 +4,45 @@ import { useSelector } from 'react-redux';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
 
 import Box from '@mui/material/Box';
+import { useMediaQuery } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 import { AppRootStateType } from '../store/store';
-import { makeStyles } from '@mui/styles';
 import { CardItem } from './CardItem';
+import { ICollection } from '../store/collections/collectionsTypes';
 
 const useStyles = makeStyles((theme) => ({
   block: {
-    width:'90%',
+    width: '90%',
     height: '90vh',
     bgcolor: 'background.default',
     color: 'text.primary',
     margin: '0 auto'
   },
   rootCard: {
-    width:'100%',
+    width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    overflow: 'hidden'
+  },
+  queryRootCard: {
+    width: '100%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     overflow: 'hidden'
   }
 }));
 
 export function Main() {
 
+  const smallQuery = useMediaQuery('(max-width:777px)');
+
   const classes = useStyles();
 
-  const collection = useSelector((state: AppRootStateType) => state.collection.collection);
+  // @ts-ignore
+  const collection = useSelector<AppRootStateType, ICollection[]>(state => state.collection.collection);
 
   const onFileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const storage = getStorage();
@@ -47,18 +59,22 @@ export function Main() {
   };
 
 
-
   return (
       <Box className={classes.block}>
-        <div className={classes.rootCard}>
+        <div className={smallQuery ? classes.queryRootCard : classes.rootCard}>
 
-        {/*<StandardImageList />*/}
+          {/*<StandardImageList />*/}
 
           {/*<input type='file' onChange={onFileChangeHandler}/>*/}
           {collection.map((book) => {
             return (
 
-                  <CardItem image={book.imageURL} id={book.id}/>
+                <CardItem image={book.imageURL}
+                          id={book.id}
+                          likes={book.likes}
+                          hasLiked={book.hasLiked}
+                          description={book.descriptions}
+                />
 
             );
           })}

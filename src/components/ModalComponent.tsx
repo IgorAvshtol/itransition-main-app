@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
 
 import { SignUp } from './SignUp';
 import { AppRootStateType } from '../store/store';
 import { makeStyles } from '@mui/styles';
 import { SignIn } from './SignIn';
 import { logOut } from '../store/auth/authThunk';
-import { useTranslation } from 'react-i18next';
+import { Icon, useMediaQuery } from '@mui/material';
+import { NavigateMenu } from './NavigateMenu';
 
 
 const useStyles = makeStyles({
@@ -27,9 +32,14 @@ const useStyles = makeStyles({
   },
   authButtons: {
     display: 'flex',
-    flexDirection:'column',
-    alignItems:'center',
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    cursor: 'pointer',
+  },
+  authButtonsResp: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
     cursor: 'pointer',
   },
   lang: {
@@ -43,6 +53,8 @@ const useStyles = makeStyles({
 export function ModalComponent() {
 
   const { t } = useTranslation();
+
+  const smallQuery = useMediaQuery('(max-width:550px)');
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -75,13 +87,28 @@ export function ModalComponent() {
 
   return (
       <div>
-        <Box className={classes.authButtons}>
-          <Typography onClick={handleOpen} variant="h6" component="div">
-            {authenticated ? userData?.email : `${t('description.part3')}`}
-          </Typography>
-          <Typography onClick={authenticated ? onLogOutButtonHandler : handleSignInButton} variant="h6" component="div">
-            {authenticated ? `${t('description.part10')}` : `${t('description.part4')}`}
-          </Typography>
+        <Box>
+          {
+            authenticated ?
+
+                  <NavigateMenu/>
+
+                :
+                <Box className={smallQuery ? classes.authButtonsResp : classes.authButtons}>
+                  <Typography onClick={handleOpen} variant="h6" component="div">
+                    {`${t('description.part3')}`}
+                  </Typography>
+                  <Typography onClick={handleSignInButton} variant="h6" component="div">
+                    {`${t('description.part4')}`}
+                  </Typography>
+                </Box>
+          }
+          {/*<Typography onClick={handleOpen} variant="h6" component="div">*/}
+          {/*  {authenticated ? userData?.email : `${t('description.part3')}`}*/}
+          {/*</Typography>*/}
+          {/*<Typography onClick={authenticated ? onLogOutButtonHandler : handleSignInButton} variant="h6" component="div">*/}
+          {/*  {authenticated ? `${t('description.part10')}` : `${t('description.part4')}`}*/}
+          {/*</Typography>*/}
         </Box>
         <Modal
             open={open}

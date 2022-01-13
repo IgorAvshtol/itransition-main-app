@@ -1,17 +1,12 @@
-import { ActionType, ISignInData, ISignUpData, IUser } from '../types';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+
 import { AppRootStateType } from '../store';
-import { collection, deleteDoc, doc, getDocs, getFirestore, setDoc, getDoc } from 'firebase/firestore';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  signInWithEmailAndPassword
-} from 'firebase/auth';
-import firebase from '../../firebase/config';
-import { actions } from '../actions';
+import { ActionType, ISignInData, ISignUpData, IUser } from './authTypes';
+import { actions } from './authActions';
 
 export const signup = (data: ISignUpData): ThunkAction<void, AppRootStateType, null, ActionType> => {
   return (dispatch: Dispatch) => {

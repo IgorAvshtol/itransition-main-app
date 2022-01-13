@@ -10,6 +10,7 @@ import { Header } from './components/Header';
 import { useDispatch } from 'react-redux';
 import { getUserById } from './store/auth/authThunk';
 import { getUsersCollections } from './store/collections/collectionsThunk';
+import { ItemPage } from './components/ItemPage';
 
 
 export const ColorModeContext = createContext({
@@ -60,6 +61,7 @@ function App() {
           <Header/>
           <Routes>
             <Route path='/' element={<Main/>}/>
+            <Route path='/book/:bookId' element={<ItemPage/>}/>
           </Routes>
         </ThemeProvider>
       </ColorModeContext.Provider>

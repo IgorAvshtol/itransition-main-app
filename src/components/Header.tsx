@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
 
 import { AppBar, Box, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import HomeIcon from '@mui/icons-material/Home';
 
 import { Switcher } from './Switcher';
 import { ModalComponent } from './ModalComponent';
@@ -15,7 +17,7 @@ const useStyles = makeStyles({
     justifyContent: 'space-between'
   },
   headerLinks: {
-    width: '30%',
+    width: '20%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -26,7 +28,7 @@ const useStyles = makeStyles({
     height: '20px',
   },
   authButtons: {
-    width:'250px',
+    width: '250px',
   }
 });
 
@@ -53,13 +55,17 @@ export function Header() {
                 <MenuItem value={'eng'}>English</MenuItem>
               </Select>
               <Switcher/>
-              <Typography variant="h6" component="div">
-                {t('description.part1')}
-              </Typography>
-              <Typography variant="h6" component="div">
-                {t('description.part2')}
-              </Typography>
+              <NavLink to="/">
+                <HomeIcon sx={{ color: 'white' }} fontSize={'large'}/>
+              </NavLink>
+              {/*<Typography variant="h6" component="div">*/}
+              {/*  {t('description.part1')}*/}
+              {/*</Typography>*/}
+              {/*<Typography variant="h6" component="div">*/}
+              {/*  {t('description.part2')}*/}
+              {/*</Typography>*/}
             </Box>
+
             <Box className={classes.authButtons}>
               <ModalComponent/>
             </Box>

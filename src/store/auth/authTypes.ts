@@ -4,7 +4,6 @@ export enum TypesKeys {
   SET_ERROR = 'SET_ERROR',
   SET_LOADING = 'SET_LOADING',
   SET_LOG_OUT = 'SET_LOG_OUT',
-  SET_COLLECTION = 'SET_COLLECTION',
 }
 
 export interface IUser {
@@ -31,19 +30,6 @@ export interface ISignInData {
   password: string;
 }
 
-export interface ICollection {
-  authors: string;
-  descriptions: string;
-  imageURL: string;
-  pages: string;
-  section: string;
-  id: string;
-}
-
-export interface ICollectionState {
-  collection: ICollection[];
-}
-
 export interface ISetUser {
   type: TypesKeys.SET_USER;
   payload: IUser;
@@ -68,16 +54,12 @@ export interface ILogOut {
   type: TypesKeys.SET_LOG_OUT;
 }
 
-export interface ISetCollection {
-  type: TypesKeys.SET_COLLECTION;
-  payload: ICollection;
-}
 
-
-export type ActionType = ISetAuthenticated
+export type ActionType =
+    ISetAuthenticated
     | ISetUser
     | ISetLoading
     | ISetError
     | ILogOut
-    | ISetCollection
+
 

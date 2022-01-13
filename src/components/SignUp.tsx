@@ -7,7 +7,7 @@ import { makeStyles } from '@mui/styles';
 
 import { signup } from '../store/auth/authThunk';
 import { AppRootStateType } from '../store/store';
-import { actions } from '../store/actions';
+import { actions } from '../store/auth/authActions';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
