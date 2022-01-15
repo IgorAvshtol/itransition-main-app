@@ -5,12 +5,16 @@ import { Route, Routes } from 'react-router-dom';
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@mui/styles';
 
-import { Main } from './components/Main';
-import { Header } from './components/Header';
+import { Main } from './components/Main/Main';
+import { Header } from './components/Header/Header';
 import { useDispatch } from 'react-redux';
 import { getUserById } from './store/auth/authThunk';
 import { getUsersCollections } from './store/collections/collectionsThunk';
-import { ItemPage } from './components/ItemPage';
+import { ItemPage } from './components/Main/Item/ItemPage';
+import { NoAccessPage } from './components/Routers/NoAccessPage';
+import { PrivateRoute } from './components/Routers/PrivateRoute';
+import { ItemForm } from './components/Form/ItemForm';
+
 
 
 export const ColorModeContext = createContext({
@@ -62,6 +66,9 @@ function App() {
           <Routes>
             <Route path='/' element={<Main/>}/>
             <Route path='/book/:bookId' element={<ItemPage/>}/>
+            <Route path='/addBookForm' element={<ItemForm/>}/>
+            {/*<Route path='/redirect' element={NoAccessPage}/>*/}
+            <Route path='/redirect' element={<PrivateRoute children={NoAccessPage}/>}/>
           </Routes>
         </ThemeProvider>
       </ColorModeContext.Provider>

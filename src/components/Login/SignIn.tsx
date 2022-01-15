@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { signIn } from '../store/auth/authThunk';
+import { signIn } from '../../store/auth/authThunk';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({

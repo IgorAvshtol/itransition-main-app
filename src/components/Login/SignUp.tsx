@@ -1,14 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { signup } from '../store/auth/authThunk';
-import { AppRootStateType } from '../store/store';
-import { actions } from '../store/auth/authActions';
-import { useTranslation } from 'react-i18next';
+import { signup } from '../../store/auth/authThunk';
+import { AppRootStateType } from '../../store/store';
+import { actions } from '../../store/auth/authActions';
 
 const useStyles = makeStyles({
   signUpForm: {
@@ -30,12 +30,10 @@ export function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const loading = useSelector((state: AppRootStateType) => state.auth.loading);
-  // const [loading, setLoading] = useState(false);
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     dispatch(actions.setLoadingAC(true));
-    // setLoading(true);
     dispatch(signup({ email, password, firstName }));
   };
 

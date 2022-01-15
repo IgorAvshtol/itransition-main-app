@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { MouseEvent } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { logOut } from '../store/auth/authThunk';
+import { logOut } from '../../store/auth/authThunk';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Box, useMediaQuery } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { AppRootStateType } from '../store/store';
+import { AppRootStateType } from '../../store/store';
 import { useState } from 'react';
 
 
@@ -28,6 +29,8 @@ const useStyles = makeStyles({
 
 
 export function NavigateMenu() {
+
+  const { t } = useTranslation();
 
   const classes = useStyles();
 
@@ -76,11 +79,10 @@ export function NavigateMenu() {
               horizontal: 'left',
             }}
         >
-          <NavLink to={`/book/${userData?.id}`}>
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <NavLink to={'/addBookForm'} style={{ textDecoration: 'none', color: 'black' }}>
+            <MenuItem onClick={handleClose}>{`${t('select.add_book')}`}</MenuItem>
           </NavLink>
-          {/*<MenuItem onClick={handleClose}>Profile</MenuItem>*/}
-          <MenuItem onClick={onLogOutButtonHandler}>Logout</MenuItem>
+          <MenuItem onClick={onLogOutButtonHandler}>{`${t('select.logout')}`}</MenuItem>
         </Menu>
       </div>
   );

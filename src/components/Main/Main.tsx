@@ -7,9 +7,10 @@ import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { AppRootStateType } from '../store/store';
-import { CardItem } from './CardItem';
-import { ICollection } from '../store/collections/collectionsTypes';
+import { AppRootStateType } from '../../store/store';
+import { CardItem } from './Item/CardItem';
+import { ICollection } from '../../store/collections/collectionsTypes';
+import { ItemForm } from '../Form/ItemForm';
 
 const useStyles = makeStyles((theme) => ({
   block: {
@@ -62,10 +63,6 @@ export function Main() {
   return (
       <Box className={classes.block}>
         <div className={smallQuery ? classes.queryRootCard : classes.rootCard}>
-
-          {/*<StandardImageList />*/}
-
-          {/*<input type='file' onChange={onFileChangeHandler}/>*/}
           {collection.map((book) => {
             return (
 
@@ -73,7 +70,7 @@ export function Main() {
                           id={book.id}
                           likes={book.likes}
                           hasLiked={book.hasLiked}
-                          description={book.descriptions}
+                          description={book.description}
                 />
 
             );
@@ -81,7 +78,6 @@ export function Main() {
         </div>
       </Box>
   )
-      ;
 }
 
 

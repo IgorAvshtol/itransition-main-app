@@ -15,12 +15,12 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsersCollections, setDislikeBook, setLikeBook } from '../store/collections/collectionsThunk';
+import { getUsersCollections, setDislikeBook, setLikeBook } from '../../../store/collections/collectionsThunk';
 import { makeStyles } from '@mui/styles';
 import { useEffect, useState } from 'react';
-import { AppRootStateType } from '../store/store';
+import { AppRootStateType } from '../../../store/store';
 import { NavLink } from 'react-router-dom';
-import { actions } from '../store/collections/collectionsActions';
+import { actions } from '../../../store/collections/collectionsActions';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
@@ -75,6 +75,8 @@ export function CardItem({ image, id, likes, hasLiked, description }: CardItemTy
 
   const classes = useStyles();
 
+  const authenticated = useSelector<AppRootStateType, boolean>(state => state.auth.authenticated)
+
   const dispatch = useDispatch();
 
   const countOfLikes = likes?.length;
@@ -107,17 +109,13 @@ export function CardItem({ image, id, likes, hasLiked, description }: CardItemTy
             title="Shrimp and Chorizo Paella"
             subheader="September 14, 2016"
         />
-        <NavLink to={`/book/${id}`} onClick={() => onBookCardClickHandler(id)}>
-
+        <NavLink to={authenticated ? `/book/${id}` : '/redirect'} onClick={() => onBookCardClickHandler(id)}>
           <CardMedia
               component="img"
-              // height="600"
               image={image}
-              alt="Paella dish"
-              // sx={{ width: '350px' }}
+              alt="Book photo"
           />
         </NavLink>
-
         <CardContent>
           <Typography className={classes.description} gutterBottom component="div">
             {description}

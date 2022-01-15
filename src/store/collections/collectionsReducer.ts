@@ -4,7 +4,7 @@ const initialState: ICollectionState = {
   collection: [] as ICollection[],
   currentBook: {
     authors: '',
-    descriptions: '',
+    description: '',
     imageURL: '',
     pages: '',
     section: '',

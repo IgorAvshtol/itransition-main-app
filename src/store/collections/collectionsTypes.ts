@@ -2,18 +2,27 @@ export enum TypesKeys {
   SET_COLLECTION = 'SET_COLLECTION',
   CURRENT_BOOK_HAS_LIKED = 'CURRENT_BOOK_HAS_LIKED',
   GET_CURRENT_BOOK = 'GET_CURRENT_BOOK',
-  CURRENT_BOOK_HAS_DISLIKED = 'CURRENT_BOOK_HAS_DISLIKED'
+  CURRENT_BOOK_HAS_DISLIKED = 'CURRENT_BOOK_HAS_DISLIKED',
+  ADD_BOOK_IN_COLLECTION = 'ADD_BOOK_IN_COLLECTION'
 }
 
 export interface ICollection {
   authors: string;
-  descriptions: string;
+  description: string;
   imageURL: string;
   pages: string;
   section: string;
   id: string;
   likes: string[];
   hasLiked: boolean;
+}
+
+export interface ISetBook {
+  author: string;
+  description: string;
+  file: any;
+  pages: string;
+  section: string;
 }
 
 export interface ICollectionState {
@@ -51,6 +60,5 @@ export interface IGetCurrentBook {
 }
 
 export type ActionType = ISetCollection | ICurrentUserSetLiked | IGetCurrentBook | ICurrentUserSetDisliked
-
 
 

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { Switch } from '@mui/material';
 
-import { ColorModeContext } from '../App';
+import { ColorModeContext } from '../../App';
 
 
 export function Switcher() {

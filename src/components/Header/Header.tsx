@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import i18n from 'i18next';
-import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
-import { AppBar, Box, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, MenuItem, Select, SelectChangeEvent, Toolbar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import HomeIcon from '@mui/icons-material/Home';
 
@@ -34,8 +33,6 @@ const useStyles = makeStyles({
 
 export function Header() {
 
-  const { t } = useTranslation();
-
   const classes = useStyles();
 
   const [lang, setLang] = useState('ru');
@@ -58,14 +55,7 @@ export function Header() {
               <NavLink to="/">
                 <HomeIcon sx={{ color: 'white' }} fontSize={'large'}/>
               </NavLink>
-              {/*<Typography variant="h6" component="div">*/}
-              {/*  {t('description.part1')}*/}
-              {/*</Typography>*/}
-              {/*<Typography variant="h6" component="div">*/}
-              {/*  {t('description.part2')}*/}
-              {/*</Typography>*/}
             </Box>
-
             <Box className={classes.authButtons}>
               <ModalComponent/>
             </Box>
