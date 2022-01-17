@@ -66,7 +66,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Main/>}/>
             <Route path='/book/:bookId' element={<ItemPage/>}/>
-            <Route path='/addBookForm' element={<ItemForm/>}/>
+            {/*<Route path='/addBookForm' element={<ItemForm/>}/>*/}
+            <Route path='/addBookForm' element={<PrivateRoute children={ItemForm}/>}/>
             {/*<Route path='/redirect' element={NoAccessPage}/>*/}
             <Route path='/redirect' element={<PrivateRoute children={NoAccessPage}/>}/>
           </Routes>

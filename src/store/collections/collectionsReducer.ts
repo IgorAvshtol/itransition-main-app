@@ -10,8 +10,18 @@ const initialState: ICollectionState = {
     section: '',
     id: '',
     likes: [] as string[],
-    hasLiked: false
-  }
+    senderEmail: '',
+    departureDate: ''
+  },
+  selections: [
+    'История',
+    'Биография',
+    'Фантастика',
+    'Комедия',
+    'Научное',
+    'История',
+    'Эксклюзив'
+  ]
 };
 
 export const collectionReducer = (state = initialState, action: ActionType) => {

@@ -69,7 +69,8 @@ export function Main() {
                 <CardItem image={book.imageURL}
                           id={book.id}
                           likes={book.likes}
-                          hasLiked={book.hasLiked}
+                          senderEmail={book.senderEmail}
+                          departureDate={book.departureDate}
                           description={book.description}
                 />
 

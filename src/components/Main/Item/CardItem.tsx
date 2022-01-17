@@ -1,36 +1,33 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { NavLink } from 'react-router-dom';
+
+import { useDispatch, useSelector } from 'react-redux';
+
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUsersCollections, setDislikeBook, setLikeBook } from '../../../store/collections/collectionsThunk';
 import { makeStyles } from '@mui/styles';
-import { useEffect, useState } from 'react';
-import { AppRootStateType } from '../../../store/store';
-import { NavLink } from 'react-router-dom';
-import { actions } from '../../../store/collections/collectionsActions';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+
+import { AppRootStateType } from '../../../store/store';
+import { actions } from '../../../store/collections/collectionsActions';
+import { setDislikeBook, setLikeBook } from '../../../store/collections/collectionsThunk';
 
 
 type CardItemType = {
   image: any;
   id: string;
   likes: string[];
-  hasLiked: boolean;
   description: string;
+  senderEmail?: string;
+  departureDate: any;
 }
 
 const useStyles = makeStyles({
@@ -41,9 +38,6 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'space-between',
     cursor: 'pointer',
-  },
-  active: {
-    color: '#bd2020'
   },
   passive: {
     color: 'rgba(42,34,34,0.85)'
@@ -71,11 +65,11 @@ const useStyles = makeStyles({
   }
 });
 
-export function CardItem({ image, id, likes, hasLiked, description }: CardItemType) {
+export function CardItem({ image, id, likes, description, senderEmail, departureDate }: CardItemType) {
 
   const classes = useStyles();
 
-  const authenticated = useSelector<AppRootStateType, boolean>(state => state.auth.authenticated)
+  const authenticated = useSelector<AppRootStateType, boolean>(state => state.auth.authenticated);
 
   const dispatch = useDispatch();
 
@@ -98,7 +92,7 @@ export function CardItem({ image, id, likes, hasLiked, description }: CardItemTy
         <CardHeader
             avatar={
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                R
+                U
               </Avatar>
             }
             action={
@@ -106,8 +100,8 @@ export function CardItem({ image, id, likes, hasLiked, description }: CardItemTy
                 <MoreVertIcon/>
               </IconButton>
             }
-            title="Shrimp and Chorizo Paella"
-            subheader="September 14, 2016"
+            title={departureDate}
+            subheader={senderEmail}
         />
         <NavLink to={authenticated ? `/book/${id}` : '/redirect'} onClick={() => onBookCardClickHandler(id)}>
           <CardMedia
@@ -122,7 +116,7 @@ export function CardItem({ image, id, likes, hasLiked, description }: CardItemTy
           </Typography>
           <CardActions disableSpacing className={classes.mistakesBlock}>
             <ThumbUpIcon onClick={() => onLikeClickHandler(id)}
-                         className={hasLiked ? classes.active : classes.passive}/>
+                         className={classes.passive}/>
             <Typography variant="body2" color="text.secondary">
               {countOfLikes}
             </Typography>

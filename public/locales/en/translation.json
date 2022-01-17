@@ -15,7 +15,9 @@
   },
   "form": {
     "authors": "Authors",
-    "title": "Title",
+    "title": "Fill the form:",
+    "done": "Done!",
+    "error": "Error!",
     "description": "Description",
     "image": "Image",
     "pages": "Pages",

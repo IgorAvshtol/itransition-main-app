@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import { makeStyles } from '@mui/styles';
-import { Box, Container } from '@mui/material';
+import { Box, Container, useMediaQuery } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 import { AppRootStateType } from '../../../store/store';
@@ -12,6 +12,21 @@ import { IconContent } from './IconContent';
 import { actions } from '../../../store/collections/collectionsActions';
 
 const useStyles = makeStyles({
+  container: {
+    paddingTop: '60px',
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  containerResponse: {
+    paddingTop: '60px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  mainImage: {
+    maxWidth: '300px',
+  },
   descriptionsBlock: {
     height: '300px',
     maxWidth: '900px',
@@ -25,11 +40,14 @@ const useStyles = makeStyles({
   },
   description: {
     height: '240px',
-    marginTop: '20px'
+    marginTop: '20px',
+    textAlign: 'center'
   }
 });
 
 export function ItemPage() {
+
+  const smallQuery = useMediaQuery('(max-width:777px)');
 
   const classes = useStyles();
 
@@ -43,16 +61,13 @@ export function ItemPage() {
   useEffect(() => {
     if (bookId) {
       dispatch(actions.getCurrentBookAC(bookId));
-      console.log(bookId);
     }
   }, []);
 
 
   return (
-      <Container sx={{ paddingTop: '60px', display: 'flex', justifyContent: 'space-between' }} maxWidth={'xl'}>
-        <Box>
-          <img src={book.imageURL} width={400} alt="book-cover"/>
-        </Box>
+      <Container className={smallQuery ? classes.containerResponse : classes.container} maxWidth={'xl'}>
+        <img src={book.imageURL} className={classes.mainImage} alt="book-cover"/>
         <Box className={classes.descriptionsBlock}>
           <Box className={classes.iconsBlock}>
             <IconContent book={book}/>

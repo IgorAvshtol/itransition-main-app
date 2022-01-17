@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 import { AppRootStateType } from '../../store/store';
-import { actions } from '../../store/alert/alertActions';
+import { actionsAlert } from '../../store/alert/alertActions';
+
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -16,34 +18,42 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export function Success() {
+export function SuccessModal() {
+
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const success = useSelector<AppRootStateType, boolean>(state => state.alert.success);
+  const error = useSelector<AppRootStateType, boolean>(state => state.alert.error);
 
-  const [open, setOpen] = React.useState(false);
+  const [openSuccessAlert, setOpenSuccessAlert] = React.useState(false);
+  const [openErrorAlert, setOpenErrorAlert] = React.useState(false);
 
   useEffect(() => {
-    success && setOpen(true)
+    success && setOpenSuccessAlert(true);
+    error && setOpenErrorAlert(true);
     setTimeout(() => {
-      dispatch(actions.setSuccess(false));
-      setOpen(false)
-    }, 5000);
-  }, [success]);
+      dispatch(actionsAlert.setSuccess(false));
+      dispatch(actionsAlert.setError(false));
+      setOpenSuccessAlert(false);
+      setOpenErrorAlert(false);
+    }, 2000);
+  }, [success, error]);
 
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
-    setOpen(false);
+    setOpenSuccessAlert(false);
+    setOpenErrorAlert(false);
   };
 
   return (
       <Stack spacing={2} sx={{ width: '100%' }}>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Snackbar open={success ? openSuccessAlert : openErrorAlert} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            This is a success message!
+            {success ? t('form.done') : t('form.error')}
           </Alert>
         </Snackbar>
       </Stack>

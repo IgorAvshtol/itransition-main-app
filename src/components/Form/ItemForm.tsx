@@ -1,12 +1,31 @@
 import * as React from 'react';
 import * as yup from 'yup';
-import { Formik, Field, Form, FormikHelpers } from 'formik';
-import { Box, Button, Container, Input, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { Formik, Form, FormikHelpers } from 'formik';
+
+import { Box, Button, Container, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { SuccessModal } from '../Alert/SuccessModal';
+import { makeStyles } from '@mui/styles';
+
 import { setCollection } from '../../store/collections/collectionsThunk';
-import { Success } from '../Alert/Success';
-import { actions } from '../../store/alert/alertActions';
+import { AppRootStateType } from '../../store/store';
+
+const useStyles = makeStyles({
+  formBlock: {
+    height: '90vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  form: {
+    padding: '30px',
+    backgroundColor: '#f3e9e9',
+    borderRadius: 10,
+    textAlign: 'center'
+  }
+});
 
 interface Values {
   author: string;
@@ -20,7 +39,12 @@ export const ItemForm = () => {
 
   const { t } = useTranslation();
 
+  const classes = useStyles();
+
   const dispatch = useDispatch();
+
+  // @ts-ignore
+  const selections = useSelector<AppRootStateType, string[]>(state => state.collection.selections);
 
   const validationSchema = yup.object().shape({
     author: yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
@@ -28,23 +52,8 @@ export const ItemForm = () => {
     pages: yup.number().typeError('Должно быть строкой').required('Обязательно'),
   });
 
-  const selections = [
-    'История',
-    'Биография',
-    'Фантастика',
-    'Комедия',
-    'Научное',
-    'История',
-    'Эксклюзив'
-  ];
-
-  const hhh = () =>{
-    dispatch(actions.setSuccess(true))
-  }
-
   return (
       <div>
-        <h1>Signup</h1>
         <Formik
             initialValues={{
               author: '',
@@ -58,11 +67,7 @@ export const ItemForm = () => {
                 values: Values,
                 { setSubmitting }: FormikHelpers<Values>
             ) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 500);
-              dispatch(setCollection(values))
+              dispatch(setCollection(values));
             }}
         >
           {({
@@ -70,14 +75,11 @@ export const ItemForm = () => {
               handleBlur, setFieldValue
             }) => (
               <Form>
-                <Container fixed
-                           style={{ height: '90vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Box sx={{
-                    padding: '30px',
-                    backgroundColor: '#f3e9e9',
-                    borderRadius: 10,
-                    textAlign: 'center'
-                  }}>
+                <Container fixed className={classes.formBlock}>
+                  <Box className={classes.form}>
+                    <Typography variant="h5" component="div">
+                      {`${t('form.title')}`}
+                    </Typography>
                     <div>
                       <TextField
                           style={{ marginTop: 10 }}
@@ -147,16 +149,12 @@ export const ItemForm = () => {
                       </Button>
                     </div>
                   </Box>
-
                 </Container>
               </Form>
           )
-
           }
-
         </Formik>
-        <button onClick={hhh}>aaxaxa</button>
-        <Success/>
+        <SuccessModal/>
       </div>
   );
 };

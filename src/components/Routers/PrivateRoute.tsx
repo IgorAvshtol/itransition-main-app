@@ -13,7 +13,7 @@ export function PrivateRoute({ children: Component }: PropsType) {
 
   const authenticated = useSelector<AppRootStateType, boolean>(state => state.auth.authenticated);
 
-  if (authenticated) {
+  if (!authenticated) {
     return <Navigate to="/"/>;
   }
 

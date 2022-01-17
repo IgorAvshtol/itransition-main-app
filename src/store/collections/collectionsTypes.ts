@@ -3,7 +3,6 @@ export enum TypesKeys {
   CURRENT_BOOK_HAS_LIKED = 'CURRENT_BOOK_HAS_LIKED',
   GET_CURRENT_BOOK = 'GET_CURRENT_BOOK',
   CURRENT_BOOK_HAS_DISLIKED = 'CURRENT_BOOK_HAS_DISLIKED',
-  ADD_BOOK_IN_COLLECTION = 'ADD_BOOK_IN_COLLECTION'
 }
 
 export interface ICollection {
@@ -14,7 +13,8 @@ export interface ICollection {
   section: string;
   id: string;
   likes: string[];
-  hasLiked: boolean;
+  senderEmail?: string;
+  departureDate: any;
 }
 
 export interface ISetBook {
@@ -28,6 +28,7 @@ export interface ISetBook {
 export interface ICollectionState {
   collection: ICollection[];
   currentBook: ICollection;
+  selections: string[];
 }
 
 export interface ILike {
