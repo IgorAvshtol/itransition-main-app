@@ -2,7 +2,7 @@
   "name": "itransition-main-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://igoravshtol.github.io/itransition-main-app",
+  "homepage": "https://itransition-main-app.herokuapp.com/",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
