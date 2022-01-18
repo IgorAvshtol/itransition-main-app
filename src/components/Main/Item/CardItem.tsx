@@ -100,8 +100,8 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
                 <MoreVertIcon/>
               </IconButton>
             }
-            title={departureDate}
-            subheader={senderEmail}
+            title={senderEmail}
+            subheader={departureDate}
         />
         <NavLink to={authenticated ? `/book/${id}` : '/redirect'} onClick={() => onBookCardClickHandler(id)}>
           <CardMedia

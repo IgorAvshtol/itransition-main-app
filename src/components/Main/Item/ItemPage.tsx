@@ -10,6 +10,7 @@ import { AppRootStateType } from '../../../store/store';
 import { ICollection } from '../../../store/collections/collectionsTypes';
 import { IconContent } from './IconContent';
 import { actions } from '../../../store/collections/collectionsActions';
+import { CommentsPage } from '../../CommentsPage/CommentsPage';
 
 const useStyles = makeStyles({
   container: {
@@ -66,18 +67,22 @@ export function ItemPage() {
 
 
   return (
-      <Container className={smallQuery ? classes.containerResponse : classes.container} maxWidth={'xl'}>
-        <img src={book.imageURL} className={classes.mainImage} alt="book-cover"/>
-        <Box className={classes.descriptionsBlock}>
-          <Box className={classes.iconsBlock}>
-            <IconContent book={book}/>
-          </Box>
-          <Box className={classes.description}>
-            <Typography gutterBottom component="div">
-              {book.description}
-            </Typography>
+      <Container maxWidth={'xl'}>
+        <Box className={smallQuery ? classes.containerResponse : classes.container}>
+          <img src={book.imageURL} className={classes.mainImage} alt="book-cover"/>
+          <Box className={classes.descriptionsBlock}>
+            <Box className={classes.iconsBlock}>
+              <IconContent book={book}/>
+            </Box>
+            <Box className={classes.description}>
+              <Typography gutterBottom component="div">
+                {book.description}
+              </Typography>
+            </Box>
+            <CommentsPage/>
           </Box>
         </Box>
+
       </Container>
 
 

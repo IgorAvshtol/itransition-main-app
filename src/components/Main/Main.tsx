@@ -1,7 +1,4 @@
-import { ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
-
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
 
 import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
@@ -10,7 +7,7 @@ import { makeStyles } from '@mui/styles';
 import { AppRootStateType } from '../../store/store';
 import { CardItem } from './Item/CardItem';
 import { ICollection } from '../../store/collections/collectionsTypes';
-import { ItemForm } from '../Form/ItemForm';
+
 
 const useStyles = makeStyles((theme) => ({
   block: {
@@ -44,21 +41,6 @@ export function Main() {
 
   // @ts-ignore
   const collection = useSelector<AppRootStateType, ICollection[]>(state => state.collection.collection);
-
-  const onFileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const storage = getStorage();
-    const storageRef = ref(storage);
-    // @ts-ignore
-    const fileName = e.target.files[0].name;
-    // @ts-ignore
-    const file = e.target.files[0];
-    const imagesRef = ref(storageRef, 'books/');
-    const spaceRef = ref(imagesRef, `${fileName}`);
-    uploadBytes(spaceRef, file).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
-    });
-  };
-
 
   return (
       <Box className={classes.block}>

@@ -2,6 +2,7 @@
   "name": "itransition-main-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://igoravshtol.github.io/itransition-main-app",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -23,6 +24,7 @@
     "@types/yup": "^0.29.13",
     "firebase": "^9.6.1",
     "formik": "^2.2.9",
+    "gh-pages": "^3.2.3",
     "i18next": "^21.6.4",
     "i18next-browser-languagedetector": "^6.1.2",
     "i18next-http-backend": "^1.3.1",
@@ -42,7 +44,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
