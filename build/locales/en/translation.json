@@ -1,0 +1,30 @@
+{
+  "description": {
+    "part1": "Main",
+    "part2": "Favorites",
+    "part3": "Sign Up",
+    "part4": "Sign In",
+    "part5": "Fill in to register:",
+    "part6": "First Name",
+    "part7": "E-Mail",
+    "part8": "Password",
+    "part9": "Fill in to enter:",
+    "part10": "Log out",
+    "part11": "Wait...",
+    "part12": "Please login or register..."
+  },
+  "form": {
+    "authors": "Authors",
+    "title": "Fill the form:",
+    "done": "Done!",
+    "error": "Error!",
+    "description": "Description",
+    "image": "Image",
+    "pages": "Pages",
+    "section": "Section"
+  },
+  "select": {
+    "add_book": "Add book",
+    "logout": "Logout"
+  }
+}

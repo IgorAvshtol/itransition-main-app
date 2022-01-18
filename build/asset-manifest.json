@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/itransition-main-app/static/css/main.e6c13ad2.css",
+    "main.js": "/itransition-main-app/static/js/main.4422580d.js",
+    "index.html": "/itransition-main-app/index.html",
+    "static/media/getFetch.cjs": "/itransition-main-app/static/media/getFetch.c780682470504fffbd04.cjs",
+    "main.e6c13ad2.css.map": "/itransition-main-app/static/css/main.e6c13ad2.css.map",
+    "main.4422580d.js.map": "/itransition-main-app/static/js/main.4422580d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.4422580d.js"
+  ]
+}
