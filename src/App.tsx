@@ -14,6 +14,7 @@ import { ItemPage } from './components/Main/Item/ItemPage';
 import { NoAccessPage } from './components/Routers/NoAccessPage';
 import { PrivateRoute } from './components/Routers/PrivateRoute';
 import { ItemForm } from './components/Form/ItemForm';
+import { SignIn } from './components/Login/SignIn';
 
 
 
@@ -65,6 +66,7 @@ function App() {
           <Header/>
           <Routes>
             <Route path='/' element={<Main/>}/>
+            <Route path='/signin' element={<SignIn/>}/>
             <Route path='/book/:bookId' element={<ItemPage/>}/>
             {/*<Route path='/addBookForm' element={<ItemForm/>}/>*/}
             <Route path='/addBookForm' element={<PrivateRoute children={ItemForm}/>}/>

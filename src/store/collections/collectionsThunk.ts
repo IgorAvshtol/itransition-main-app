@@ -4,7 +4,7 @@ import { ThunkAction } from 'redux-thunk';
 import { collection, doc, getDocs, getFirestore, arrayUnion, updateDoc, arrayRemove, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-import { ActionType, ICollection, ISetBook } from './collectionsTypes';
+import { ActionType, IAddCollectionForm, ICollection, IComment, ISetBook } from './collectionsTypes';
 import { AppRootStateType, store } from '../store';
 import { actions } from './collectionsActions';
 import { actionsAlert } from '../alert/alertActions';
@@ -15,7 +15,18 @@ export const getUsersCollections = (): ThunkAction<void, AppRootStateType, null,
     const db = getFirestore();
     const collections = await getDocs(collection(db, 'books'));
     collections.forEach((doc) => {
-      const { authors, description, imageURL, pages, section, id, likes, senderEmail, departureDate } = doc.data();
+      const {
+        authors,
+        description,
+        imageURL,
+        pages,
+        section,
+        id,
+        likes,
+        senderEmail,
+        departureDate,
+        comments
+      } = doc.data();
       const collection: ICollection = {
         authors: authors,
         description: description,
@@ -26,6 +37,7 @@ export const getUsersCollections = (): ThunkAction<void, AppRootStateType, null,
         likes: likes,
         senderEmail: senderEmail,
         departureDate: departureDate,
+        comments: comments
       };
       dispatch(actions.setCollectionAC(collection));
     });
@@ -98,10 +110,10 @@ export const setCollection = (data: ISetBook): ThunkAction<void, AppRootStateTyp
           .then((url) => {
             // `url` is the download URL for 'book'
             const state = store.getState();
-            const userEmail = state.auth.user?.email
-            const yearAndMonth =new Date().toLocaleDateString();
-            const hoursAndMinutes =new Date().toLocaleTimeString().split(':').slice(0,2).join(':');
-            const bookData: ICollection = {
+            const userEmail = state.auth.user?.email;
+            const yearAndMonth = new Date().toLocaleDateString();
+            const hoursAndMinutes = new Date().toLocaleTimeString().split(':').slice(0, 2).join(':');
+            const bookData: IAddCollectionForm = {
               authors: data.author,
               pages: data.pages,
               description: data.description,
@@ -126,6 +138,35 @@ export const setCollection = (data: ISetBook): ThunkAction<void, AppRootStateTyp
     }
   };
 };
+
+export const setCommentThunk = (id: string, comment: string): ThunkAction<void, AppRootStateType, null, ActionType> => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const state = store.getState();
+      const uid = state.auth.user?.id;
+      const userEmail = state.auth.user?.email;
+      const yearAndMonth = new Date().toLocaleDateString();
+      const hoursAndMinutes = new Date().toLocaleTimeString().split(':').slice(0, 2).join(':');
+      const db = getFirestore();
+      const ref = doc(db, 'books', `${id}`);
+      await updateDoc(ref, {
+        comments: arrayUnion({ text: comment, author: userEmail, date: `${yearAndMonth} ${hoursAndMinutes}` })
+      });
+      if (uid) {
+        const comments: IComment = {
+          bookId: id,
+          author: userEmail,
+          text: comment,
+          date: `${yearAndMonth} ${hoursAndMinutes}`
+        };
+        dispatch(actions.setComment({ comments }));
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+};
+
 
 
 

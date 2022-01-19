@@ -10,7 +10,7 @@ import { ICollection } from '../../../store/collections/collectionsTypes';
 
 const useStyles = makeStyles({
   iconsBlock: {
-    width: '50%',
+    width: '60%',
     display: 'flex',
     justifyContent: 'space-between'
   },

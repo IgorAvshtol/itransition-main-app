@@ -1,4 +1,4 @@
-import { ActionType, ICollectionState, ICollection, TypesKeys } from './collectionsTypes';
+import { ActionType, ICollectionState, ICollection, TypesKeys, ICommentData, IComment } from './collectionsTypes';
 
 const initialState: ICollectionState = {
   collection: [] as ICollection[],
@@ -11,7 +11,8 @@ const initialState: ICollectionState = {
     id: '',
     likes: [] as string[],
     senderEmail: '',
-    departureDate: ''
+    departureDate: '',
+    comments: [] as IComment[]
   },
   selections: [
     'История',
@@ -53,6 +54,21 @@ export const collectionReducer = (state = initialState, action: ActionType) => {
           // hasLiked: true,
           likes: [...n.likes.filter(like => like !== action.payload.likeData.userId)]
         } : n)
+      };
+    case TypesKeys.SET_COMMENT:
+      return {
+        ...state,
+        collection: state.collection.map(book => book.id === action.payload.comments.bookId
+            ? {
+              ...book,
+              comments: [...book.comments, {
+                author: action.payload.comments.author,
+                text: action.payload.comments.text,
+                date: action.payload.comments.date
+              }
+              ]
+            }
+            : book)
       };
     default:
       return state;

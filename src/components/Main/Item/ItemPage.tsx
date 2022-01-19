@@ -40,7 +40,8 @@ const useStyles = makeStyles({
     justifyContent: 'center'
   },
   description: {
-    height: '240px',
+    width:'100%',
+    // height: '240px',
     marginTop: '20px',
     textAlign: 'center'
   }
@@ -79,10 +80,9 @@ export function ItemPage() {
                 {book.description}
               </Typography>
             </Box>
-            <CommentsPage/>
+            <CommentsPage comments={book.comments} id={book.id}/>
           </Box>
         </Box>
-
       </Container>
 
 

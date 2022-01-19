@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -16,7 +16,6 @@ import { makeStyles } from '@mui/styles';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
-import { AppRootStateType } from '../../../store/store';
 import { actions } from '../../../store/collections/collectionsActions';
 import { setDislikeBook, setLikeBook } from '../../../store/collections/collectionsThunk';
 
@@ -69,8 +68,6 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
 
   const classes = useStyles();
 
-  const authenticated = useSelector<AppRootStateType, boolean>(state => state.auth.authenticated);
-
   const dispatch = useDispatch();
 
   const countOfLikes = likes?.length;
@@ -87,12 +84,14 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
     dispatch(actions.getCurrentBookAC(id));
   };
 
+  const avatarLetter = senderEmail?.toUpperCase().split('').splice(0,1).join();
+
   return (
       <Card className={classes.card}>
         <CardHeader
             avatar={
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                U
+                {avatarLetter}
               </Avatar>
             }
             action={
@@ -103,7 +102,7 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
             title={senderEmail}
             subheader={departureDate}
         />
-        <NavLink to={authenticated ? `/book/${id}` : '/redirect'} onClick={() => onBookCardClickHandler(id)}>
+        <NavLink to={`/book/${id}`} onClick={() => onBookCardClickHandler(id)}>
           <CardMedia
               component="img"
               image={image}
