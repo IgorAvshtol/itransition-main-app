@@ -24,6 +24,7 @@ export const getUsersCollections = (): ThunkAction<void, AppRootStateType, null,
         id,
         likes,
         senderEmail,
+        senderId,
         departureDate,
         comments
       } = doc.data();
@@ -36,9 +37,11 @@ export const getUsersCollections = (): ThunkAction<void, AppRootStateType, null,
         id: id,
         likes: likes,
         senderEmail: senderEmail,
+        senderId: senderId,
         departureDate: departureDate,
         comments: comments
       };
+      dispatch(actions.setCurrentSectionsAC(section));
       dispatch(actions.setCollectionAC(collection));
     });
   };
@@ -111,6 +114,7 @@ export const setCollection = (data: ISetBook): ThunkAction<void, AppRootStateTyp
             // `url` is the download URL for 'book'
             const state = store.getState();
             const userEmail = state.auth.user?.email;
+            const userId = state.auth.user?.id;
             const yearAndMonth = new Date().toLocaleDateString();
             const hoursAndMinutes = new Date().toLocaleTimeString().split(':').slice(0, 2).join(':');
             const bookData: IAddCollectionForm = {
@@ -122,6 +126,7 @@ export const setCollection = (data: ISetBook): ThunkAction<void, AppRootStateTyp
               id: refCollection.id,
               likes: [],
               senderEmail: userEmail,
+              senderId: userId,
               departureDate: `${yearAndMonth} ${hoursAndMinutes}`,
             };
             setDoc(refCollection, bookData);
@@ -159,7 +164,7 @@ export const setCommentThunk = (id: string, comment: string): ThunkAction<void, 
           text: comment,
           date: `${yearAndMonth} ${hoursAndMinutes}`
         };
-        dispatch(actions.setComment({ comments }));
+        dispatch(actions.setCommentAC({ comments }));
       }
     } catch (err: any) {
       console.log(err);

@@ -25,6 +25,10 @@
   },
   "select": {
     "add_book": "Добавить книгу",
+    "my_publications": "Мои публикации",
     "logout": "Выйти"
+  },
+  "publications": {
+    "no_publications": "У вас пока что нет публикаций"
   }
 }

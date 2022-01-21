@@ -25,6 +25,10 @@
   },
   "select": {
     "add_book": "Add book",
+    "my_publications": "My publications",
     "logout": "Logout"
+  },
+  "publications": {
+    "no_publications": "You don't have any posts yet"
   }
 }

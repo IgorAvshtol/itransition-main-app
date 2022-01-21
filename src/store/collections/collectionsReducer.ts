@@ -1,4 +1,4 @@
-import { ActionType, ICollectionState, ICollection, TypesKeys, ICommentData, IComment } from './collectionsTypes';
+import { ActionType, ICollection, ICollectionState, IComment, TypesKeys } from './collectionsTypes';
 
 const initialState: ICollectionState = {
   collection: [] as ICollection[],
@@ -14,15 +14,19 @@ const initialState: ICollectionState = {
     departureDate: '',
     comments: [] as IComment[]
   },
-  selections: [
+  sections: [
     'История',
     'Биография',
     'Фантастика',
     'Комедия',
     'Научное',
-    'История',
-    'Эксклюзив'
-  ]
+    'Эксклюзив',
+    'Детские'
+  ],
+  currentSections: [
+      'Все'
+  ],
+  currentUserPublications: [] as ICollection[]
 };
 
 export const collectionReducer = (state = initialState, action: ActionType) => {
@@ -70,6 +74,16 @@ export const collectionReducer = (state = initialState, action: ActionType) => {
             }
             : book)
       };
+    case TypesKeys.SET_CURRENT_SECTIONS:
+      return {
+        ...state,
+        currentSections: [...state.currentSections, action.payload]
+      };
+    case TypesKeys.GET_CURRENT_USER_PUBLICATIONS:
+      return {
+        ...state,
+        currentUserPublications: state.collection.filter(collection => collection.senderId === action.payload)
+      }
     default:
       return state;
 

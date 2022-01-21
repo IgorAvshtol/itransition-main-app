@@ -3,7 +3,9 @@ export enum TypesKeys {
   CURRENT_BOOK_HAS_LIKED = 'CURRENT_BOOK_HAS_LIKED',
   GET_CURRENT_BOOK = 'GET_CURRENT_BOOK',
   CURRENT_BOOK_HAS_DISLIKED = 'CURRENT_BOOK_HAS_DISLIKED',
-  SET_COMMENT = 'SET_COMMENT'
+  SET_COMMENT = 'SET_COMMENT',
+  SET_CURRENT_SECTIONS = 'SET_CURRENT_SECTIONS',
+  GET_CURRENT_USER_PUBLICATIONS = 'GET_CURRENT_USER_PUBLICATIONS'
 }
 
 export interface ICollection {
@@ -15,6 +17,7 @@ export interface ICollection {
   id: string;
   likes: string[];
   senderEmail?: string;
+  senderId?: string;
   departureDate: any;
   comments: IComment[];
 }
@@ -29,6 +32,7 @@ export interface IAddCollectionForm {
   likes: string[];
   senderEmail?: string;
   departureDate: any;
+  senderId?: string;
 }
 
 export interface ISetBook {
@@ -42,7 +46,9 @@ export interface ISetBook {
 export interface ICollectionState {
   collection: ICollection[];
   currentBook: ICollection;
-  selections: string[];
+  sections: string[];
+  currentSections: string[];
+  currentUserPublications: ICollection[];
 }
 
 export interface ILike {
@@ -87,7 +93,17 @@ export interface IGetCurrentBook {
 
 export interface ISetComment {
   type: TypesKeys.SET_COMMENT,
-  payload: ICommentData
+  payload: ICommentData;
+}
+
+export interface ISetCurrentSections {
+  type: TypesKeys.SET_CURRENT_SECTIONS,
+  payload: string;
+}
+
+export interface ISetCurrentUserPublications {
+  type: TypesKeys.GET_CURRENT_USER_PUBLICATIONS,
+  payload: string;
 }
 
 export type ActionType = ISetCollection
@@ -95,5 +111,7 @@ export type ActionType = ISetCollection
     | IGetCurrentBook
     | ICurrentUserSetDisliked
     | ISetComment
+    | ISetCurrentSections
+    | ISetCurrentUserPublications
 
 

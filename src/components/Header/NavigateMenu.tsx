@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -10,9 +10,15 @@ import { logOut } from '../../store/auth/authThunk';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Box, useMediaQuery } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import Badge from '@mui/material/Badge';
+
 
 import { AppRootStateType } from '../../store/store';
 import { useState } from 'react';
+import { ICollection } from '../../store/collections/collectionsTypes';
+import { IUser } from '../../store/auth/authTypes';
+import { actions } from '../../store/collections/collectionsActions';
 
 
 const useStyles = makeStyles({
@@ -38,7 +44,16 @@ export function NavigateMenu() {
 
   const dispatch = useDispatch();
 
-  const userData = useSelector((state: AppRootStateType) => state.auth.user);
+  // @ts-ignore
+  const countOfPublications = useSelector<AppRootStateType, ICollection[]>((state: AppRootStateType) => state.collection.currentUserPublications);
+
+  const userData = useSelector<AppRootStateType, IUser | null>(state => state.auth.user);
+
+  useEffect(() => {
+    if (userData?.id) {
+      dispatch(actions.setCurrentUserPublicationsAC(userData?.id));
+    }
+  }, []);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -81,6 +96,13 @@ export function NavigateMenu() {
         >
           <NavLink to={'/addBookForm'} style={{ textDecoration: 'none', color: 'black' }}>
             <MenuItem onClick={handleClose}>{`${t('select.add_book')}`}</MenuItem>
+          </NavLink>
+          <NavLink to={`/user:${userData?.id}/public`} style={{ textDecoration: 'none', color: 'black' }}>
+            <MenuItem onClick={handleClose}>{`${t('select.my_publications')}`}
+              <Badge badgeContent={countOfPublications.length || 0} color="primary" showZero>
+                <MenuBookIcon color="action" sx={{ paddingLeft: '10px' }}/>
+              </Badge>
+            </MenuItem>
           </NavLink>
           <MenuItem onClick={onLogOutButtonHandler}>{`${t('select.logout')}`}</MenuItem>
         </Menu>

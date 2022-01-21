@@ -44,7 +44,7 @@ export const ItemForm = () => {
   const dispatch = useDispatch();
 
   // @ts-ignore
-  const selections = useSelector<AppRootStateType, string[]>(state => state.collection.selections);
+  const sections = useSelector<AppRootStateType, string[]>(state => state.collection.sections);
 
   const validationSchema = yup.object().shape({
     author: yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
@@ -136,7 +136,7 @@ export const ItemForm = () => {
                             onChange={handleChange}
                     >
                       {
-                        selections.map(select => {
+                        sections.map(select => {
                           return (
                               <MenuItem value={select}>{select}</MenuItem>
                           );
@@ -145,7 +145,7 @@ export const ItemForm = () => {
                     </Select>
                     <div style={{ marginTop: 10 }}>
                       <Button type={'submit'} variant="contained">
-                        BUTTON
+                        {t('select.add_book')}
                       </Button>
                     </div>
                   </Box>

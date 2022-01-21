@@ -7,6 +7,8 @@ import { makeStyles } from '@mui/styles';
 import { AppRootStateType } from '../../store/store';
 import { CardItem } from './Item/CardItem';
 import { ICollection } from '../../store/collections/collectionsTypes';
+import { Tags } from '../Header/Tags';
+import { useState } from 'react';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto'
   },
   rootCard: {
+    paddingTop: '20px',
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
@@ -42,10 +45,21 @@ export function Main() {
   // @ts-ignore
   const collection = useSelector<AppRootStateType, ICollection[]>(state => state.collection.collection);
 
+  const [filter, setFilter] = useState<string | null>('Все');
+
+  const filterTasks = (collection: ICollection[]) => {
+    if (filter === 'Все') {
+      return collection;
+    } else {
+      return collection.filter(book => book.section === filter);
+    }
+  };
+
   return (
       <Box className={classes.block}>
+        <Tags setFilter={setFilter}/>
         <div className={smallQuery ? classes.queryRootCard : classes.rootCard}>
-          {collection.map((book) => {
+          {filterTasks(collection).map((book) => {
             return (
 
                 <CardItem image={book.imageURL}
@@ -60,7 +74,7 @@ export function Main() {
           })}
         </div>
       </Box>
-  )
+  );
 }
 
 

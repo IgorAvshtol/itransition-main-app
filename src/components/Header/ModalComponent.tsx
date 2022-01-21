@@ -54,7 +54,7 @@ export function ModalComponent() {
 
   const classes = useStyles();
 
-  const authenticated = useSelector((state: AppRootStateType) => state.auth.authenticated);
+  const authenticated = useSelector<AppRootStateType, boolean>(state => state.auth.authenticated);
 
   const [open, setOpen] = useState(false);
   const [signIn, setSignIn] = useState(false);
