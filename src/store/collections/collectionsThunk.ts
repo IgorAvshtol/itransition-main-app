@@ -4,7 +4,15 @@ import { ThunkAction } from 'redux-thunk';
 import { collection, doc, getDocs, getFirestore, arrayUnion, updateDoc, arrayRemove, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-import { ActionType, IAddCollectionForm, ICollection, IComment, ISetBook } from './collectionsTypes';
+import {
+  ActionType,
+  IAddCollectionForm,
+  ICollection,
+  IComment,
+  ISetBook,
+  IUpdateData,
+  IUpdateDataWithId
+} from './collectionsTypes';
 import { AppRootStateType, store } from '../store';
 import { actions } from './collectionsActions';
 import { actionsAlert } from '../alert/alertActions';
@@ -171,6 +179,44 @@ export const setCommentThunk = (id: string, comment: string): ThunkAction<void, 
     }
   };
 };
+
+export const editPublication = (publicationId: string, updateData: IUpdateData): ThunkAction<void, AppRootStateType, null, ActionType> => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const db = getFirestore();
+      const ref = doc(db, 'books', `${publicationId}`);
+      await updateDoc(ref, {
+        author: updateData.author,
+        description: updateData.description,
+        pages: updateData.pages,
+        section: updateData.section
+      });
+      const update: IUpdateDataWithId = {
+        publicationId: publicationId,
+        author: updateData.author,
+        description: updateData.description,
+        pages: updateData.pages,
+        section: updateData.section
+      };
+      dispatch(actions.setUpdatePublicationAC(update))
+      dispatch(actionsAlert.setSuccess(true));
+
+
+      // const updatedData: IUpdateData = {
+        //   author: updateData.author,
+        //   description: updateData.description,
+        //   pages: updateData.pages,
+        //   section: updateData.section
+        // };
+        // dispatch(actions.setCommentAC({ comments }));
+
+    } catch (err: any) {
+      console.log(err);
+      dispatch(actionsAlert.setError(true));
+    }
+  };
+};
+
 
 
 

@@ -47,8 +47,9 @@ export function CommentsPage({ comments, id }: CommentsPageType) {
     if (authenticated) {
       dispatch(setCommentThunk(id, commentText));
       setCommentText('');
+    } else {
+      navigate('/signin')
     }
-    navigate('/signin')
   };
 
 

@@ -29,6 +29,11 @@
     "logout": "Logout"
   },
   "publications": {
-    "no_publications": "You don't have any posts yet"
+    "no_publications": "You don't have any posts yet",
+    "apply_changes": "Apply changes"
+  },
+  "validation": {
+    "pages_field": "Must be a number",
+    "field": "Required input"
   }
 }

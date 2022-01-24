@@ -73,7 +73,7 @@ export function ItemPage() {
           <img src={book.imageURL} className={classes.mainImage} alt="book-cover"/>
           <Box className={classes.descriptionsBlock}>
             <Box className={classes.iconsBlock}>
-              <IconContent book={book}/>
+              {/*<IconContent book={book}/>*/}
             </Box>
             <Box className={classes.description}>
               <Typography gutterBottom component="div">

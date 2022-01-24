@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,11 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, FormikHelpers } from 'formik';
 
 import { Box, Button, Container, MenuItem, Select, TextField, Typography } from '@mui/material';
-import { SuccessModal } from '../Alert/SuccessModal';
 import { makeStyles } from '@mui/styles';
 
 import { setCollection } from '../../store/collections/collectionsThunk';
 import { AppRootStateType } from '../../store/store';
+import { SuccessModal } from '../Alert/SuccessModal';
+
 
 const useStyles = makeStyles({
   formBlock: {
@@ -47,10 +47,11 @@ export const ItemForm = () => {
   const sections = useSelector<AppRootStateType, string[]>(state => state.collection.sections);
 
   const validationSchema = yup.object().shape({
-    author: yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
-    description: yup.string().typeError('Должно быть строкой').required('Обязательно'),
-    pages: yup.number().typeError('Должно быть строкой').required('Обязательно'),
+    author: yup.string().required(t('validation.field')),
+    description: yup.string().required(t('validation.field')),
+    pages: yup.number().typeError(t('validation.pages_field')).required(t('validation.field')),
   });
+
 
   return (
       <div>

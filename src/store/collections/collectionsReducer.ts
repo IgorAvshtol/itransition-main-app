@@ -1,4 +1,11 @@
-import { ActionType, ICollection, ICollectionState, IComment, TypesKeys } from './collectionsTypes';
+import {
+  ActionType,
+  ICollection,
+  ICollectionState,
+  IComment,
+  ICurrentUserPublications,
+  TypesKeys
+} from './collectionsTypes';
 
 const initialState: ICollectionState = {
   collection: [] as ICollection[],
@@ -24,9 +31,9 @@ const initialState: ICollectionState = {
     'Детские'
   ],
   currentSections: [
-      'Все'
+    'Все'
   ],
-  currentUserPublications: [] as ICollection[]
+  currentUserPublications: [] as ICurrentUserPublications[],
 };
 
 export const collectionReducer = (state = initialState, action: ActionType) => {
@@ -41,23 +48,21 @@ export const collectionReducer = (state = initialState, action: ActionType) => {
         ...state,
         collection: state.collection.map(n => n.id === action.payload.likeData.bookId ? {
           ...n,
-          // hasLiked: true,
           likes: Array.from(new Set([...n.likes, action.payload.likeData.userId]))
         } : n)
-      };
-    case TypesKeys.GET_CURRENT_BOOK:
-      return {
-        ...state,
-        currentBook: { ...state.collection.find(book => book.id === action.payload) }
       };
     case TypesKeys.CURRENT_BOOK_HAS_DISLIKED:
       return {
         ...state,
         collection: state.collection.map(n => n.id === action.payload.likeData.bookId ? {
           ...n,
-          // hasLiked: true,
           likes: [...n.likes.filter(like => like !== action.payload.likeData.userId)]
         } : n)
+      };
+    case TypesKeys.GET_CURRENT_BOOK:
+      return {
+        ...state,
+        currentBook: { ...state.collection.find(book => book.id === action.payload) }
       };
     case TypesKeys.SET_COMMENT:
       return {
@@ -83,7 +88,20 @@ export const collectionReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         currentUserPublications: state.collection.filter(collection => collection.senderId === action.payload)
-      }
+      };
+    case TypesKeys.UPDATE_PUBLICATION:
+      return {
+        ...state,
+        collection: state.collection.map(book => book.id === action.payload.publicationId
+            ? {
+              ...book,
+              author: action.payload.author,
+              description: action.payload.description,
+              pages: action.payload.pages,
+              section: action.payload.section,
+            }
+            : book)
+      };
     default:
       return state;
 

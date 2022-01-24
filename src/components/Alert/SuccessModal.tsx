@@ -52,7 +52,7 @@ export function SuccessModal() {
   return (
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar open={success ? openSuccessAlert : openErrorAlert} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          <Alert onClose={handleClose} severity={success ? 'success' : 'error'} sx={{ width: '100%' }}>
             {success ? t('form.done') : t('form.error')}
           </Alert>
         </Snackbar>

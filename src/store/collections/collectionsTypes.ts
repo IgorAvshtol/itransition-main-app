@@ -5,7 +5,8 @@ export enum TypesKeys {
   CURRENT_BOOK_HAS_DISLIKED = 'CURRENT_BOOK_HAS_DISLIKED',
   SET_COMMENT = 'SET_COMMENT',
   SET_CURRENT_SECTIONS = 'SET_CURRENT_SECTIONS',
-  GET_CURRENT_USER_PUBLICATIONS = 'GET_CURRENT_USER_PUBLICATIONS'
+  GET_CURRENT_USER_PUBLICATIONS = 'GET_CURRENT_USER_PUBLICATIONS',
+  UPDATE_PUBLICATION = 'UPDATE_PUBLICATION'
 }
 
 export interface ICollection {
@@ -48,7 +49,16 @@ export interface ICollectionState {
   currentBook: ICollection;
   sections: string[];
   currentSections: string[];
-  currentUserPublications: ICollection[];
+  currentUserPublications: ICurrentUserPublications[];
+}
+
+export interface ICurrentUserPublications {
+  authors: string;
+  description: string;
+  imageURL: string;
+  pages: string;
+  section: string;
+  id: string;
 }
 
 export interface ILike {
@@ -69,6 +79,26 @@ export interface IComment {
 
 export interface ICommentData {
   comments: IComment;
+}
+
+export interface IUpdateDataWithId {
+  publicationId: string;
+  author: string;
+  description: string;
+  pages: string;
+  section: string;
+}
+
+export interface IUpdateData {
+  author: string;
+  description: string;
+  pages: string;
+  section: string;
+}
+
+export interface IEditMode {
+  publicationId: string;
+  editMode: boolean
 }
 
 export interface ISetCollection {
@@ -106,6 +136,12 @@ export interface ISetCurrentUserPublications {
   payload: string;
 }
 
+
+export interface IUpdatePublication {
+  type: TypesKeys.UPDATE_PUBLICATION,
+  payload: IUpdateDataWithId;
+}
+
 export type ActionType = ISetCollection
     | ICurrentUserSetLiked
     | IGetCurrentBook
@@ -113,5 +149,5 @@ export type ActionType = ISetCollection
     | ISetComment
     | ISetCurrentSections
     | ISetCurrentUserPublications
-
+    | IUpdatePublication
 

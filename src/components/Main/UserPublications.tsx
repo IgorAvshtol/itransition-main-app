@@ -5,7 +5,8 @@ import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
 
 import { AppRootStateType } from '../../store/store';
-import { ICollection } from '../../store/collections/collectionsTypes';
+import { ICollection, ICurrentUserPublications } from '../../store/collections/collectionsTypes';
+import { Publi } from './Publi';
 import { Publication } from './Publication';
 
 
@@ -14,7 +15,8 @@ export function UserPublications() {
   const { t } = useTranslation();
 
   // @ts-ignore
-  const currentUserPublications = useSelector<AppRootStateType, ICollection[]>(state => state.collection.currentUserPublications);
+  const currentUserPublications = useSelector<AppRootStateType, ICurrentUserPublications[]>(state => state.collection.currentUserPublications);
+  console.log(currentUserPublications);
 
   return (
       <Container maxWidth={'xl'}>

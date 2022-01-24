@@ -29,6 +29,11 @@
     "logout": "Выйти"
   },
   "publications": {
-    "no_publications": "У вас пока что нет публикаций"
+    "no_publications": "У вас пока что нет публикаций",
+    "apply_changes": "Применить изменения"
+  },
+  "validation": {
+    "pages_field": "Должно быть число",
+    "field": "Обязательное поле"
   }
 }
