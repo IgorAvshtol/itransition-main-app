@@ -44,7 +44,8 @@ export function Main() {
   const classes = useStyles();
 
   const collection = useSelector<AppRootStateType, ICollection[]>(state => state.collection.collection);
-  console.log('coll'+collection.length);
+
+  const collectionsAfterSortDate = collection.sort((prev, next) => next.dateUTC - prev.dateUTC);
 
   const [filter, setFilter] = useState<string | null>('Все');
 
@@ -60,7 +61,7 @@ export function Main() {
       <Box className={classes.block}>
         <TagsSlick setFilter={setFilter}/>
         <div className={smallQuery ? classes.queryRootCard : classes.rootCard}>
-          {filterTasks(collection).map((book) => {
+          {filterTasks(collectionsAfterSortDate).map((book) => {
             return (
 
                 <CardItem image={book.imageURL}

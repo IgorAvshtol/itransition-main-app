@@ -20,8 +20,9 @@ export interface ICollection {
   likes: string[];
   senderEmail?: string;
   senderId?: string;
-  departureDate: any;
+  departureDate: string;
   comments?: IComment[];
+  dateUTC: number;
 }
 
 export interface IAddCollectionForm {
@@ -102,7 +103,7 @@ export interface IUpdateData {
 
 export interface IEditMode {
   publicationId: string;
-  editMode: boolean
+  editMode: boolean;
 }
 
 export interface ISetCollection {

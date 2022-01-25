@@ -35,7 +35,8 @@ export const setUsersCollections = (): ThunkAction<void, AppRootStateType, null,
         senderEmail,
         senderId,
         departureDate,
-        comments
+        comments,
+        dateUTC
       } = doc.data();
       const collection: ICollection = {
         authors: authors,
@@ -49,7 +50,8 @@ export const setUsersCollections = (): ThunkAction<void, AppRootStateType, null,
         senderEmail: senderEmail,
         senderId: senderId,
         departureDate: departureDate,
-        comments: comments
+        comments: comments,
+        dateUTC: dateUTC
       };
       dispatch(actions.setCurrentSectionsAC(section));
       dispatch(actions.setCollectionAC(collection));
@@ -139,6 +141,7 @@ export const setCollection = (data: ISetBook): ThunkAction<void, AppRootStateTyp
               senderEmail: userEmail,
               senderId: userId,
               departureDate: `${yearAndMonth} ${hoursAndMinutes}`,
+              dateUTC: new Date().getTime()
             };
             setDoc(refCollection, bookData);
             dispatch(actions.setCollectionAC(bookData));
