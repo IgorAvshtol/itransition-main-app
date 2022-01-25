@@ -43,8 +43,8 @@ export function Main() {
 
   const classes = useStyles();
 
-  // @ts-ignore
   const collection = useSelector<AppRootStateType, ICollection[]>(state => state.collection.collection);
+  console.log('coll'+collection.length);
 
   const [filter, setFilter] = useState<string | null>('Все');
 

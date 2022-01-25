@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MouseEvent, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -13,9 +14,7 @@ import { makeStyles } from '@mui/styles';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Badge from '@mui/material/Badge';
 
-
 import { AppRootStateType } from '../../store/store';
-import { useState } from 'react';
 import { ICollection } from '../../store/collections/collectionsTypes';
 import { IUser } from '../../store/auth/authTypes';
 import { actions } from '../../store/collections/collectionsActions';
@@ -44,25 +43,27 @@ export function NavigateMenu() {
 
   const dispatch = useDispatch();
 
-  // @ts-ignore
   const countOfPublications = useSelector<AppRootStateType, ICollection[]>((state: AppRootStateType) => state.collection.currentUserPublications);
 
   const userData = useSelector<AppRootStateType, IUser | null>(state => state.auth.user);
 
   useEffect(() => {
-    if (userData?.id ) {
+    if (userData?.id) {
       dispatch(actions.setCurrentUserPublicationsAC(userData?.id));
     }
-  }, [userData?.id, dispatch]);
+  }, []);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const onLogOutButtonHandler = () => {
     dispatch(logOut());
   };

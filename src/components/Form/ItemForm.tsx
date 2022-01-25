@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 
 interface Values {
   author: string;
+  title: string;
   description: string;
   file: any;
   pages: string;
@@ -58,6 +59,7 @@ export const ItemForm = () => {
         <Formik
             initialValues={{
               author: '',
+              title: '',
               description: '',
               file: '',
               pages: '',
@@ -92,6 +94,18 @@ export const ItemForm = () => {
                           value={values.author}
                       />
                       {touched.author && errors.author && <p>{errors.author}</p>}
+                    </div>
+                    <div>
+                      <TextField
+                          style={{ marginTop: 10 }}
+                          name="title"
+                          label={t('form.name')}
+                          variant="filled"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.title}
+                      />
+                      {touched.title && errors.title && <p>{errors.title}</p>}
                     </div>
                     <div>
                       <TextField

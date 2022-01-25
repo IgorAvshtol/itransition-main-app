@@ -2,43 +2,18 @@ import {
   ActionType,
   ICollection,
   ICollectionState,
-  IComment,
-  ICurrentUserPublications,
   TypesKeys
 } from './collectionsTypes';
 
 const initialState: ICollectionState = {
-  collection: [{
-    authors: '',
-    description: '',
-    imageURL: '',
-    pages: '',
-    section: '',
-    id: '',
-    likes: [] as string[],
-    senderEmail: '',
-    departureDate: '',
-    comments: [] as IComment[]
-  }
-  ] as ICollection[],
-  currentBook: {
-    authors: '',
-    description: '',
-    imageURL: '',
-    pages: '',
-    section: '',
-    id: '',
-    likes: [] as string[],
-    senderEmail: '',
-    departureDate: '',
-    comments: ['xaax'] as IComment[]
-  },
+  collection: [] as ICollection[],
+  currentBook: {} as ICollection,
   sections: [
     'История',
     'Биография',
     'Фантастика',
     'Комедия',
-    'Научное',
+    'Научная',
     'Эксклюзив',
     'Детские',
     'Классика'
@@ -72,7 +47,7 @@ export const collectionReducer = (state = initialState, action: ActionType): ICo
           likes: [...n.likes.filter(like => like !== action.payload.likeData.userId)]
         } : n)
       };
-    case TypesKeys.GET_CURRENT_BOOK:
+    case TypesKeys.SET_CURRENT_BOOK:
       const aaa = state.collection.find(book => book.id === action.payload);
       return {
         ...state,
@@ -93,14 +68,18 @@ export const collectionReducer = (state = initialState, action: ActionType): ICo
                       : book.comments
             }
             : book),
-        currentBook: { ...state.currentBook, comments: [...state.currentBook.comments, action.payload.comments] }
+        currentBook: {
+          ...state.currentBook, comments: state.currentBook.comments
+              ? [...state.currentBook.comments, action.payload.comments]
+              : state.currentBook.comments
+        }
       };
     case TypesKeys.SET_CURRENT_SECTIONS:
       return {
         ...state,
         currentSections: [...state.currentSections, action.payload]
       };
-    case TypesKeys.GET_CURRENT_USER_PUBLICATIONS:
+    case TypesKeys.SET_CURRENT_USER_PUBLICATIONS:
       return {
         ...state,
         currentUserPublications: state.collection.filter(collection => collection.senderId === action.payload)

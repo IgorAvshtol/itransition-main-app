@@ -79,7 +79,7 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
   };
 
   const onBookCardClickHandler = (id: string) => {
-    dispatch(actions.getCurrentBookAC(id));
+    dispatch(actions.setCurrentBookAC(id));
   };
 
   const avatarLetter = senderEmail?.toUpperCase().split('').splice(0,1).join();

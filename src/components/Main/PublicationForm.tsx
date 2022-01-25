@@ -32,6 +32,7 @@ const useStyles = makeStyles({
     maxWidth: '300px',
   },
   descriptionsBlock: {
+    paddingTop: '20px',
     width: '60%',
     maxWidth: '900px',
     display: 'flex',
@@ -55,7 +56,8 @@ const useStyles = makeStyles({
 type PublicationType = {
   publication: ICurrentUserPublications;
 }
-export const Publication = ({ publication }: PublicationType) => {
+
+export const PublicationForm = ({ publication }: PublicationType) => {
 
   const { t } = useTranslation();
 
@@ -66,11 +68,11 @@ export const Publication = ({ publication }: PublicationType) => {
 
   const dispatch = useDispatch();
 
-  // @ts-ignore
   const sections = useSelector<AppRootStateType, string[]>(state => state.collection.sections);
 
   const validationSchema = yup.object().shape({
     author: yup.string().required(t('validation.field')),
+    title: yup.string().required(t('validation.field')),
     description: yup.string().required(t('validation.field')),
     pages: yup.number().typeError(t('validation.pages_field')).required(t('validation.field')),
   });
@@ -88,6 +90,7 @@ export const Publication = ({ publication }: PublicationType) => {
         <Formik
             initialValues={{
               author: publication.authors,
+              title: publication.title,
               description: publication.description,
               pages: publication.pages,
               section: publication.section
@@ -120,6 +123,23 @@ export const Publication = ({ publication }: PublicationType) => {
                           sections={sections}
                       />
                     </Box>
+                    {
+                      editMode
+                          ? <div>
+                            <TextField
+                                style={{ marginTop: 20, textAlign: 'center'}}
+                                name="title"
+                                label={t('form.name')}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.title}
+                            />
+                            {touched.title && errors.title && <p>{errors.title}</p>}
+                          </div>
+                          : <Typography sx={{paddingTop: '20px', textAlign: 'center'}} gutterBottom component="div">
+                            {publication.title}
+                          </Typography>
+                    }
                     <Box className={classes.description}>
                       {
                         editMode
@@ -137,8 +157,8 @@ export const Publication = ({ publication }: PublicationType) => {
                               />
                               {touched.description && errors.description && <p>{errors.description}</p>}
                             </div>
-                            : <Typography gutterBottom component="div">
-                              {publication.description}
+                            : <Typography gutterBottom variant={'h4'} sx={{textAlign: 'center'}} component="div">
+                              {publication.title}
                             </Typography>
                       }
                       <div>

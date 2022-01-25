@@ -6,20 +6,19 @@ import { Container } from '@mui/material';
 
 import { AppRootStateType } from '../../store/store';
 import { ICurrentUserPublications } from '../../store/collections/collectionsTypes';
-import { Publication } from './Publication';
+import { PublicationForm } from './PublicationForm';
 
 
 export function UserPublications() {
 
   const { t } = useTranslation();
 
-  // @ts-ignore
   const currentUserPublications = useSelector<AppRootStateType, ICurrentUserPublications[]>(state => state.collection.currentUserPublications);
 
   return (
       <Container maxWidth={'xl'}>
         {currentUserPublications.length
-            ? currentUserPublications.map(publication => <Publication publication={publication}/>)
+            ? currentUserPublications.map(publication => <PublicationForm publication={publication}/>)
             : <Typography sx={{ paddingTop: '20px', textAlign: 'center' }} gutterBottom variant="h5">
               {t('publications.no_publications')}
             </Typography>

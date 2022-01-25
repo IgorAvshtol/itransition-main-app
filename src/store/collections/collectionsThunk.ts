@@ -18,13 +18,14 @@ import { actions } from './collectionsActions';
 import { actionsAlert } from '../alert/alertActions';
 
 
-export const getUsersCollections = (): ThunkAction<void, AppRootStateType, null, ActionType> => {
+export const setUsersCollections = (): ThunkAction<void, AppRootStateType, null, ActionType> => {
   return async (dispatch: Dispatch) => {
     const db = getFirestore();
     const collections = await getDocs(collection(db, 'books'));
     collections.forEach((doc) => {
       const {
         authors,
+        title,
         description,
         imageURL,
         pages,
@@ -38,6 +39,7 @@ export const getUsersCollections = (): ThunkAction<void, AppRootStateType, null,
       } = doc.data();
       const collection: ICollection = {
         authors: authors,
+        title: title,
         description: description,
         imageURL: imageURL,
         pages: pages,
@@ -125,8 +127,9 @@ export const setCollection = (data: ISetBook): ThunkAction<void, AppRootStateTyp
             const userId = state.auth.user?.id;
             const yearAndMonth = new Date().toLocaleDateString();
             const hoursAndMinutes = new Date().toLocaleTimeString().split(':').slice(0, 2).join(':');
-            const bookData: IAddCollectionForm = {
+            const bookData: ICollection = {
               authors: data.author,
+              title: data.title,
               pages: data.pages,
               description: data.description,
               imageURL: url,
@@ -139,6 +142,9 @@ export const setCollection = (data: ISetBook): ThunkAction<void, AppRootStateTyp
             };
             setDoc(refCollection, bookData);
             dispatch(actions.setCollectionAC(bookData));
+            if (bookData.senderId) {
+              dispatch(actions.setCurrentUserPublicationsAC(bookData.senderId));
+            }
             dispatch(actionsAlert.setSuccess(true));
           })
           .catch((error) => {
@@ -198,18 +204,8 @@ export const editPublication = (publicationId: string, updateData: IUpdateData):
         pages: updateData.pages,
         section: updateData.section
       };
-      dispatch(actions.setUpdatePublicationAC(update))
+      dispatch(actions.setUpdatePublicationAC(update));
       dispatch(actionsAlert.setSuccess(true));
-
-
-      // const updatedData: IUpdateData = {
-        //   author: updateData.author,
-        //   description: updateData.description,
-        //   pages: updateData.pages,
-        //   section: updateData.section
-        // };
-        // dispatch(actions.setCommentAC({ comments }));
-
     } catch (err: any) {
       console.log(err);
       dispatch(actionsAlert.setError(true));

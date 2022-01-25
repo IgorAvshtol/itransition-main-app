@@ -1,7 +1,6 @@
 import {
   TypesKeys,
   ILikeData,
-  IAddCollectionForm,
   ICommentData,
   IUpdateDataWithId, ICollection
 } from './collectionsTypes';
@@ -16,11 +15,11 @@ export const actions = {
     type: TypesKeys.CURRENT_BOOK_HAS_DISLIKED,
     payload: { likeData }
   } as const),
-  getCurrentBookAC: (bookId: string) => ({ type: TypesKeys.GET_CURRENT_BOOK, payload: bookId } as const),
+  setCurrentBookAC: (bookId: string) => ({ type: TypesKeys.SET_CURRENT_BOOK, payload: bookId } as const),
   setCommentAC: ({ comments }: ICommentData) => ({ type: TypesKeys.SET_COMMENT, payload: { comments } } as const),
   setCurrentSectionsAC: (select: string) => ({ type: TypesKeys.SET_CURRENT_SECTIONS, payload: select } as const),
   setCurrentUserPublicationsAC: (userId: string) => ({
-    type: TypesKeys.GET_CURRENT_USER_PUBLICATIONS,
+    type: TypesKeys.SET_CURRENT_USER_PUBLICATIONS,
     payload: userId
   } as const),
   setUpdatePublicationAC: (updateData: IUpdateDataWithId) => ({

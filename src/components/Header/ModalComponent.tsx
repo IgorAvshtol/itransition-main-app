@@ -5,12 +5,11 @@ import { useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { useMediaQuery } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 import { SignUp } from '../Login/SignUp';
 import { AppRootStateType } from '../../store/store';
-import { makeStyles } from '@mui/styles';
 import { SignIn } from '../Login/SignIn';
 import { NavigateMenu } from './NavigateMenu';
 

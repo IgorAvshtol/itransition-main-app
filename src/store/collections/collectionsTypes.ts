@@ -1,16 +1,17 @@
 export enum TypesKeys {
   SET_COLLECTION = 'SET_COLLECTION',
   CURRENT_BOOK_HAS_LIKED = 'CURRENT_BOOK_HAS_LIKED',
-  GET_CURRENT_BOOK = 'GET_CURRENT_BOOK',
+  SET_CURRENT_BOOK = 'SET_CURRENT_BOOK',
   CURRENT_BOOK_HAS_DISLIKED = 'CURRENT_BOOK_HAS_DISLIKED',
   SET_COMMENT = 'SET_COMMENT',
   SET_CURRENT_SECTIONS = 'SET_CURRENT_SECTIONS',
-  GET_CURRENT_USER_PUBLICATIONS = 'GET_CURRENT_USER_PUBLICATIONS',
+  SET_CURRENT_USER_PUBLICATIONS = 'SET_CURRENT_USER_PUBLICATIONS',
   UPDATE_PUBLICATION = 'UPDATE_PUBLICATION'
 }
 
 export interface ICollection {
   authors: string;
+  title: string;
   description: string;
   imageURL: string;
   pages: string;
@@ -20,7 +21,7 @@ export interface ICollection {
   senderEmail?: string;
   senderId?: string;
   departureDate: any;
-  comments?: IComment[] | undefined;
+  comments?: IComment[];
 }
 
 export interface IAddCollectionForm {
@@ -38,6 +39,7 @@ export interface IAddCollectionForm {
 
 export interface ISetBook {
   author: string;
+  title: string;
   description: string;
   file: any;
   pages: string;
@@ -54,6 +56,7 @@ export interface ICollectionState {
 
 export interface ICurrentUserPublications {
   authors: string;
+  title: string;
   description: string;
   imageURL: string;
   pages: string;
@@ -91,6 +94,7 @@ export interface IUpdateDataWithId {
 
 export interface IUpdateData {
   author: string;
+  title: string;
   description: string;
   pages: string;
   section: string;
@@ -117,7 +121,7 @@ export interface ICurrentUserSetDisliked {
 }
 
 export interface IGetCurrentBook {
-  type: TypesKeys.GET_CURRENT_BOOK;
+  type: TypesKeys.SET_CURRENT_BOOK;
   payload: string;
 }
 
@@ -132,7 +136,7 @@ export interface ISetCurrentSections {
 }
 
 export interface ISetCurrentUserPublications {
-  type: TypesKeys.GET_CURRENT_USER_PUBLICATIONS,
+  type: TypesKeys.SET_CURRENT_USER_PUBLICATIONS,
   payload: string;
 }
 

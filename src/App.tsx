@@ -9,7 +9,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Main } from './components/Main/Main';
 import { Header } from './components/Header/Header';
 import { getUserById } from './store/auth/authThunk';
-import { getUsersCollections } from './store/collections/collectionsThunk';
+import { setUsersCollections } from './store/collections/collectionsThunk';
 import { ItemPage } from './components/Main/Item/ItemPage';
 import { NoAccessPage } from './components/Routers/NoAccessPage';
 import { PrivateRoute } from './components/Routers/PrivateRoute';
@@ -35,7 +35,7 @@ function App() {
       } else {
       }
     });
-    dispatch(getUsersCollections());
+    dispatch(setUsersCollections());
   }, []);
 
   const [mode, setMode] = useState<'light' | 'dark'>('dark');

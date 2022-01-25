@@ -16,6 +16,7 @@
   "form": {
     "authors": "Authors",
     "title": "Fill the form:",
+    "name": "Title",
     "done": "Done!",
     "error": "Error!",
     "description": "Description",
