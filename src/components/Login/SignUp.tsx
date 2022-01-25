@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    textAlign: 'center'
   }
 });
 
@@ -29,6 +30,9 @@ export function SignUp() {
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const error = useSelector<AppRootStateType, string>(state => state.auth.error);
+
   const loading = useSelector((state: AppRootStateType) => state.auth.loading);
 
   const submitHandler = (e: FormEvent) => {
@@ -36,6 +40,15 @@ export function SignUp() {
     dispatch(actions.setLoadingAC(true));
     dispatch(signup({ email, password, firstName }));
   };
+
+  useEffect(() => {
+    return () => {
+      if (error) {
+        dispatch(actions.setErrorAC(''));
+        dispatch(actions.setLoadingAC(false));
+      }
+    };
+  }, [error, dispatch]);
 
   const onChangeFirstNameHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setFirstName(e.currentTarget.value);
@@ -53,7 +66,7 @@ export function SignUp() {
           <Typography variant="h6" gutterBottom component="div">
             {t('description.part5')}
           </Typography>
-          {/*{error}*/}
+          {error}
           <TextField
               name="firstName"
               label={t('description.part6')}

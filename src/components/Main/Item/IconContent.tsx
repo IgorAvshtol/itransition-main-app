@@ -7,7 +7,7 @@ import { makeStyles } from '@mui/styles';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 
-import { ICollection, ICurrentUserPublications, IUpdateData } from '../../../store/collections/collectionsTypes';
+import { ICurrentUserPublications, IUpdateData } from '../../../store/collections/collectionsTypes';
 
 
 const useStyles = makeStyles({

@@ -1,12 +1,14 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
 import './i18n/config';
 import './firebase/config';
-import { Provider } from 'react-redux';
+import './index.css';
+
+import App from './App';
 import { store } from './store/store';
-import { BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.render(

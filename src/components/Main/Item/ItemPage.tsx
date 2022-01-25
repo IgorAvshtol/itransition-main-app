@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 
 import { AppRootStateType } from '../../../store/store';
 import { ICollection } from '../../../store/collections/collectionsTypes';
-import { IconContent } from './IconContent';
 import { actions } from '../../../store/collections/collectionsActions';
 import { CommentsPage } from '../../CommentsPage/CommentsPage';
 
@@ -26,7 +25,7 @@ const useStyles = makeStyles({
     textAlign: 'center',
   },
   mainImage: {
-    maxWidth: '300px',
+   width: '300px',
   },
   descriptionsBlock: {
     height: '300px',
@@ -73,7 +72,6 @@ export function ItemPage() {
           <img src={book.imageURL} className={classes.mainImage} alt="book-cover"/>
           <Box className={classes.descriptionsBlock}>
             <Box className={classes.iconsBlock}>
-              {/*<IconContent book={book}/>*/}
             </Box>
             <Box className={classes.description}>
               <Typography gutterBottom component="div">

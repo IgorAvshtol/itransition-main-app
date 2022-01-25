@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
   form: {
     padding: '30px',
-    backgroundColor: '#f3e9e9',
+    backgroundColor: '#365e36',
     borderRadius: 10,
     textAlign: 'center'
   }
@@ -54,7 +54,7 @@ export const ItemForm = () => {
 
 
   return (
-      <div>
+      <div style={{paddingTop:'20px'}}>
         <Formik
             initialValues={{
               author: '',

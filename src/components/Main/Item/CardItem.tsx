@@ -32,14 +32,12 @@ type CardItemType = {
 const useStyles = makeStyles({
   card: {
     maxWidth: 350,
+    minWidth: 320,
     marginTop: '20px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     cursor: 'pointer',
-  },
-  passive: {
-    color: 'rgba(42,34,34,0.85)'
   },
   description: {
     // background: '#f5f2f1',
@@ -58,7 +56,7 @@ const useStyles = makeStyles({
     }
   },
   mistakesBlock: {
-    width: '70px',
+    width: '80px',
     display: 'flex',
     justifyContent: 'space-between'
   }
@@ -94,11 +92,6 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
                 {avatarLetter}
               </Avatar>
             }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon/>
-              </IconButton>
-            }
             title={senderEmail}
             subheader={departureDate}
         />
@@ -114,8 +107,7 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
             {description}
           </Typography>
           <CardActions disableSpacing className={classes.mistakesBlock}>
-            <ThumbUpIcon onClick={() => onLikeClickHandler(id)}
-                         className={classes.passive}/>
+            <ThumbUpIcon onClick={() => onLikeClickHandler(id)}/>
             <Typography variant="body2" color="text.secondary">
               {countOfLikes}
             </Typography>

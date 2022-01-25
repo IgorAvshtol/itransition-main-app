@@ -3,8 +3,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { createTheme } from '@mui/material';
-import { ThemeProvider } from '@mui/styles';
+import { createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
 
 import { Main } from './components/Main/Main';
 import { Header } from './components/Header/Header';
@@ -31,14 +31,14 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-        dispatch(getUserById(uid))
+        dispatch(getUserById(uid));
       } else {
       }
     });
-    dispatch(getUsersCollections())
+    dispatch(getUsersCollections());
   }, []);
 
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const [mode, setMode] = useState<'light' | 'dark'>('dark');
   const colorMode = useMemo(
       () => ({
         toggleColorMode: () => {
@@ -61,14 +61,15 @@ function App() {
   return (
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
+          <CssBaseline />
           <Header/>
           <Routes>
-            <Route path='/' element={<Main/>}/>
-            <Route path='/signin' element={<SignIn/>}/>
-            <Route path='/book/:bookId' element={<ItemPage/>}/>
-            <Route path='/user:id/public' element={<PrivateRoute children={UserPublications}/>}/>
-            <Route path='/addBookForm' element={<PrivateRoute children={ItemForm}/>}/>
-            <Route path='/redirect' element={<PrivateRoute children={NoAccessPage}/>}/>
+            <Route path="/" element={<Main/>}/>
+            <Route path="/signin" element={<SignIn/>}/>
+            <Route path="/book/:bookId" element={<ItemPage/>}/>
+            <Route path="/user:id/publications" element={<PrivateRoute children={UserPublications}/>}/>
+            <Route path="/addBookForm" element={<PrivateRoute children={ItemForm}/>}/>
+            <Route path="/redirect" element={<PrivateRoute children={NoAccessPage}/>}/>
           </Routes>
         </ThemeProvider>
       </ColorModeContext.Provider>

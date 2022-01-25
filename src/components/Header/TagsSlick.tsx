@@ -11,7 +11,7 @@ type TagsType = {
   setFilter: Dispatch<SetStateAction<string | null>>;
 }
 
-export function Tags({ setFilter }: TagsType) {
+export function TagsSlick({ setFilter }: TagsType) {
 
   // @ts-ignore
   const currentSections = useSelector<AppRootStateType, string[]>(state => state.collection.currentSections);
@@ -20,7 +20,7 @@ export function Tags({ setFilter }: TagsType) {
   if (currentSections.length < 6) {
     minSlides = currentSections.length / 2;
   } else {
-    minSlides = currentSections.length;
+    minSlides = 6;
   }
 
   const settings = {
@@ -65,7 +65,7 @@ export function Tags({ setFilter }: TagsType) {
   };
 
   return (
-      <div style={{ paddingTop: '20px' }}>
+      <div style={{ paddingTop: '20px', color:'red' }}>
         <Slider {...settings} >
           {
             currentSections.map(section => {

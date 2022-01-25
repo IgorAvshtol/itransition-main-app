@@ -25,9 +25,6 @@ const useStyles = makeStyles({
   lang: {
     width: '30px',
     height: '20px',
-  },
-  authButtons: {
-    width: '250px',
   }
 });
 
@@ -35,7 +32,9 @@ export function Header() {
 
   const classes = useStyles();
 
-  const [lang, setLang] = useState('ru');
+  const currentLang = localStorage.getItem('i18nextLng');
+
+  const [lang, setLang] = useState(currentLang!);
 
   const handleChange = (e: SelectChangeEvent) => {
     setLang(e.target.value);
@@ -56,7 +55,7 @@ export function Header() {
                 <HomeIcon sx={{ color: 'white' }} fontSize={'large'}/>
               </NavLink>
             </Box>
-            <Box className={classes.authButtons}>
+            <Box>
               <ModalComponent/>
             </Box>
           </Toolbar>

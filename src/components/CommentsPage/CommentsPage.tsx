@@ -1,6 +1,6 @@
-import { Box, Button, Container, Grid, TextField } from '@mui/material';
+import { Box, Button, Container, Grid, TextField, useMediaQuery } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { ICollection, IComment } from '../../store/collections/collectionsTypes';
+import { IComment } from '../../store/collections/collectionsTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { setCommentThunk } from '../../store/collections/collectionsThunk';
@@ -10,6 +10,22 @@ import { AppRootStateType } from '../../store/store';
 
 
 const useStyles = makeStyles({
+  commentsBlock: {
+    padding: '15px 20px',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  senderInformation: {
+    width: '50%',
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  senderInformationResponse: {
+    width: '50%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
   textBlock: {
     width: '100%',
     height: '400px',
@@ -30,6 +46,8 @@ type CommentsPageType = {
 
 export function CommentsPage({ comments, id }: CommentsPageType) {
 
+  const smallQuery = useMediaQuery('(max-width:550px)');
+
   const authenticated = useSelector((state: AppRootStateType) => state.auth.authenticated);
 
   const classes = useStyles();
@@ -41,6 +59,7 @@ export function CommentsPage({ comments, id }: CommentsPageType) {
   const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setCommentText(e.currentTarget.value);
   };
+
   const navigate = useNavigate();
 
   const onClickButtonHandler = () => {
@@ -48,36 +67,39 @@ export function CommentsPage({ comments, id }: CommentsPageType) {
       dispatch(setCommentThunk(id, commentText));
       setCommentText('');
     } else {
-      navigate('/signin')
+      navigate('/signin');
     }
   };
-
 
   return (
       <Container>
         <Grid container justifyContent={'center'} sx={{ height: '600px', marginTop: 5 }}>
           <div className={classes.textBlock}>
             {
-              comments && comments.map(text => {
+                comments && comments.map(text => {
                   return (
                       <div key={text.bookId}>
-                        <Grid container direction={'column'} sx={{ padding: '15px 20px', width:'100%' }}>
-                          <Typography variant='caption' gutterBottom className={classes.commentDate}>
-                            {text.author}
-                            {text.date}
-                          </Typography>
-
+                        <Box className={classes.commentsBlock}>
+                          <Box className={smallQuery ? classes.senderInformationResponse : classes.senderInformation}>
+                            <Typography variant="caption" gutterBottom className={classes.commentDate}>
+                              {text.author}
+                            </Typography>
+                            <Typography variant="caption" gutterBottom className={classes.commentDate}>
+                              {text.date}
+                            </Typography>
+                          </Box>
                           <Typography gutterBottom component="div">
                             {text.text}
                           </Typography>
-                        </Grid>
+                        </Box>
                       </div>
                   );
                 })
             }
           </div>
           <Grid container direction={'column'} alignItems={'flex-end'}>
-            <TextField placeholder={'Напишите отзыв'} onChange={onInputChangeHandler} value={commentText} fullWidth maxRows={2} variant={'outlined'}/>
+            <TextField placeholder={'Напишите отзыв'} onChange={onInputChangeHandler} value={commentText} fullWidth
+                       maxRows={2} variant={'outlined'}/>
             <Button onClick={onClickButtonHandler}>Отправить</Button>
           </Grid>
         </Grid>

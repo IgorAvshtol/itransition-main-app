@@ -1,15 +1,18 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import { signIn } from '../../store/auth/authThunk';
 import { useTranslation } from 'react-i18next';
+import { AppRootStateType } from '../../store/store';
+import { actions } from '../../store/auth/authActions';
 
 const useStyles = makeStyles({
-  signUpForm: {
+  signInForm: {
+    paddingTop: '20px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -22,7 +25,10 @@ export function SignIn() {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
+
   const classes = useStyles();
+
+  const error = useSelector<AppRootStateType, string>(state => state.auth.error);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,6 +40,15 @@ export function SignIn() {
     dispatch(signIn({ email, password }));
   };
 
+  useEffect(() => {
+    return () => {
+      if (error) {
+        dispatch(actions.setErrorAC(''));
+        dispatch(actions.setLoadingAC(false));
+      }
+    };
+  }, [error, dispatch]);
+
   const onChangeEmailHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
   };
@@ -42,12 +57,12 @@ export function SignIn() {
   };
 
   return (
-      <Box id="modal-modal-description">
-        <form onSubmit={submitHandler} className={classes.signUpForm}>
+      <Box id="modal-modal-description" className={classes.signInForm}>
+        <form onSubmit={submitHandler} className={classes.signInForm}>
           <Typography variant="h6" gutterBottom component="div">
             {t('description.part9')}
           </Typography>
-          {/*{error}*/}
+          {error}
           <TextField
               style={{ marginTop: 10 }}
               name="email"

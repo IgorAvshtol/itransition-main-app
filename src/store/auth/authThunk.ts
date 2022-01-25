@@ -62,8 +62,7 @@ export const signIn = (data: ISignInData): ThunkAction<void, AppRootStateType, n
           dispatch(actions.setAuthenticatedAC(true));
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+          dispatch(actions.setErrorAC(error.message));
         });
   };
 };

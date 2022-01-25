@@ -50,10 +50,10 @@ export function NavigateMenu() {
   const userData = useSelector<AppRootStateType, IUser | null>(state => state.auth.user);
 
   useEffect(() => {
-    if (userData?.id) {
+    if (userData?.id ) {
       dispatch(actions.setCurrentUserPublicationsAC(userData?.id));
     }
-  }, []);
+  }, [userData?.id, dispatch]);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -94,10 +94,10 @@ export function NavigateMenu() {
               horizontal: 'left',
             }}
         >
-          <NavLink to={'/addBookForm'} style={{ textDecoration: 'none', color: 'black' }}>
+          <NavLink to={'/addBookForm'} style={{ textDecoration: 'none', color: 'currentcolor' }}>
             <MenuItem onClick={handleClose}>{`${t('select.add_book')}`}</MenuItem>
           </NavLink>
-          <NavLink to={`/user:${userData?.id}/public`} style={{ textDecoration: 'none', color: 'black' }}>
+          <NavLink to={`/user:${userData?.id}/publications`} style={{ textDecoration: 'none', color: 'currentcolor' }}>
             <MenuItem onClick={handleClose}>{`${t('select.my_publications')}`}
               <Badge badgeContent={countOfPublications.length || 0} color="primary" showZero>
                 <MenuBookIcon color="action" sx={{ paddingLeft: '10px' }}/>

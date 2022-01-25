@@ -28,7 +28,8 @@ const initialState: ICollectionState = {
     'Комедия',
     'Научное',
     'Эксклюзив',
-    'Детские'
+    'Детские',
+    'Классика'
   ],
   currentSections: [
     'Все'

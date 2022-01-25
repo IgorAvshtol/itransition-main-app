@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
@@ -7,8 +8,7 @@ import { makeStyles } from '@mui/styles';
 import { AppRootStateType } from '../../store/store';
 import { CardItem } from './Item/CardItem';
 import { ICollection } from '../../store/collections/collectionsTypes';
-import { Tags } from '../Header/Tags';
-import { useState } from 'react';
+import { TagsSlick } from '../Header/TagsSlick';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden'
   },
   queryRootCard: {
+    paddingTop: '20px',
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
@@ -57,7 +58,7 @@ export function Main() {
 
   return (
       <Box className={classes.block}>
-        <Tags setFilter={setFilter}/>
+        <TagsSlick setFilter={setFilter}/>
         <div className={smallQuery ? classes.queryRootCard : classes.rootCard}>
           {filterTasks(collection).map((book) => {
             return (
@@ -74,6 +75,7 @@ export function Main() {
           })}
         </div>
       </Box>
+
   );
 }
 
