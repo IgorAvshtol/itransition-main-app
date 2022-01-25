@@ -3,11 +3,11 @@ import {
   ILikeData,
   IAddCollectionForm,
   ICommentData,
-  IUpdateDataWithId
+  IUpdateDataWithId, ICollection
 } from './collectionsTypes';
 
 export const actions = {
-  setCollectionAC: (collection: IAddCollectionForm) => ({
+  setCollectionAC: (collection: ICollection) => ({
     type: TypesKeys.SET_COLLECTION,
     payload: collection
   } as const),

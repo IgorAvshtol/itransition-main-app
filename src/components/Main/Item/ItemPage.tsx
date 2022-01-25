@@ -7,7 +7,7 @@ import { Box, Container, useMediaQuery } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 import { AppRootStateType } from '../../../store/store';
-import { ICollection } from '../../../store/collections/collectionsTypes';
+import { ICollection, IComment } from '../../../store/collections/collectionsTypes';
 import { actions } from '../../../store/collections/collectionsActions';
 import { CommentsPage } from '../../CommentsPage/CommentsPage';
 
@@ -54,8 +54,7 @@ export function ItemPage() {
 
   const { bookId } = useParams();
 
-  // @ts-ignore
-  const book = useSelector<AppRootStateType, ICollection>(state => state.collection.currentBook);
+  const comm = useSelector<AppRootStateType, IComment>(state => state.collection.currentBook?.comments);
 
   const dispatch = useDispatch();
 

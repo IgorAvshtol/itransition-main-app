@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 });
 
 type CommentsPageType = {
-  comments: IComment[];
+  comments?: IComment[];
   id: string
 }
 

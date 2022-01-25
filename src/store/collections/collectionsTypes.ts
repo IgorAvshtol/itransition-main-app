@@ -20,7 +20,7 @@ export interface ICollection {
   senderEmail?: string;
   senderId?: string;
   departureDate: any;
-  comments: IComment[];
+  comments?: IComment[] | undefined;
 }
 
 export interface IAddCollectionForm {
@@ -49,7 +49,7 @@ export interface ICollectionState {
   currentBook: ICollection;
   sections: string[];
   currentSections: string[];
-  currentUserPublications: ICurrentUserPublications[];
+  currentUserPublications: ICollection[];
 }
 
 export interface ICurrentUserPublications {

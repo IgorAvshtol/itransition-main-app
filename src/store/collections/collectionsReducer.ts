@@ -8,8 +8,7 @@ import {
 } from './collectionsTypes';
 
 const initialState: ICollectionState = {
-  collection: [] as ICollection[],
-  currentBook: {
+  collection: [{
     authors: '',
     description: '',
     imageURL: '',
@@ -20,6 +19,19 @@ const initialState: ICollectionState = {
     senderEmail: '',
     departureDate: '',
     comments: [] as IComment[]
+  }
+  ] as ICollection[],
+  currentBook: {
+    authors: '',
+    description: '',
+    imageURL: '',
+    pages: '',
+    section: '',
+    id: '',
+    likes: [] as string[],
+    senderEmail: '',
+    departureDate: '',
+    comments: ['xaax'] as IComment[]
   },
   sections: [
     'История',
@@ -34,10 +46,10 @@ const initialState: ICollectionState = {
   currentSections: [
     'Все'
   ],
-  currentUserPublications: [] as ICurrentUserPublications[],
+  currentUserPublications: [] as ICollection[],
 };
 
-export const collectionReducer = (state = initialState, action: ActionType) => {
+export const collectionReducer = (state = initialState, action: ActionType): ICollectionState => {
   switch (action.type) {
     case TypesKeys.SET_COLLECTION:
       return {
@@ -61,9 +73,10 @@ export const collectionReducer = (state = initialState, action: ActionType) => {
         } : n)
       };
     case TypesKeys.GET_CURRENT_BOOK:
+      const aaa = state.collection.find(book => book.id === action.payload);
       return {
         ...state,
-        currentBook: { ...state.collection.find(book => book.id === action.payload) }
+        currentBook: aaa ? { ...aaa } : { ...state.currentBook }
       };
     case TypesKeys.SET_COMMENT:
       return {
@@ -71,14 +84,16 @@ export const collectionReducer = (state = initialState, action: ActionType) => {
         collection: state.collection.map(book => book.id === action.payload.comments.bookId
             ? {
               ...book,
-              comments: [...book.comments, {
-                author: action.payload.comments.author,
-                text: action.payload.comments.text,
-                date: action.payload.comments.date
-              }
-              ]
+              comments:
+                  book.comments
+                      ?
+                      [
+                        ...book.comments, action.payload.comments
+                      ]
+                      : book.comments
             }
-            : book)
+            : book),
+        currentBook: { ...state.currentBook, comments: [...state.currentBook.comments, action.payload.comments] }
       };
     case TypesKeys.SET_CURRENT_SECTIONS:
       return {
