@@ -9,6 +9,7 @@ import { AppRootStateType } from '../../store/store';
 import { CardItem } from './Item/CardItem';
 import { ICollection } from '../../store/collections/collectionsTypes';
 import { TagsSlick } from '../Header/TagsSlick';
+import { SearchInput } from './SearchInput';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,6 +49,7 @@ export function Main() {
   const collectionsAfterSortDate = collection.sort((prev, next) => next.dateUTC - prev.dateUTC);
 
   const [filter, setFilter] = useState<string | null>('Все');
+  const [search, setSearch] = useState<string>('');
 
   const filterTasks = (collection: ICollection[]) => {
     if (filter === 'Все') {
@@ -57,14 +59,28 @@ export function Main() {
     }
   };
 
+  const searchCollection = collectionsAfterSortDate.filter(item => {
+    return (
+        item.title.toLowerCase().includes(search.toLowerCase())
+        || item.authors.toLowerCase().includes(search.toLowerCase())
+    );
+  });
+
+
   return (
       <Box className={classes.block}>
         <TagsSlick setFilter={setFilter}/>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <SearchInput search={search} setSearch={setSearch}/>
+
+        </div>
         <div className={smallQuery ? classes.queryRootCard : classes.rootCard}>
-          {filterTasks(collectionsAfterSortDate).map((book) => {
+          {filterTasks(searchCollection).map((book) => {
             return (
 
                 <CardItem image={book.imageURL}
+                          authors={book.authors}
+                          title={book.title}
                           id={book.id}
                           likes={book.likes}
                           senderEmail={book.senderEmail}

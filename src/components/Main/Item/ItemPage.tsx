@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 
 import { makeStyles } from '@mui/styles';
 import { Box, Container, useMediaQuery } from '@mui/material';
@@ -8,9 +7,7 @@ import Typography from '@mui/material/Typography';
 
 import { AppRootStateType } from '../../../store/store';
 import { ICollection } from '../../../store/collections/collectionsTypes';
-import { actions } from '../../../store/collections/collectionsActions';
 import { CommentsPage } from '../../CommentsPage/CommentsPage';
-import { IconContentForm } from './IconContentForm';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
@@ -29,11 +26,22 @@ const useStyles = makeStyles({
     textAlign: 'center',
   },
   mainImage: {
-   width: '300px',
+   width: '400px',
+  },
+  mainImageResponse: {
+    width: '100%',
   },
   descriptionsBlock: {
     height: '300px',
     maxWidth: '900px',
+    width:'60%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  descriptionsBlockResponse: {
+    height: '300px',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between'
@@ -58,7 +66,7 @@ const useStyles = makeStyles({
 
 export function ItemPage() {
 
-  const smallQuery = useMediaQuery('(max-width:777px)');
+  const smallQuery = useMediaQuery('(max-width:700px)');
 
   const classes = useStyles();
 
@@ -78,8 +86,8 @@ export function ItemPage() {
   return (
       <Container maxWidth={'xl'}>
         <Box className={smallQuery ? classes.containerResponse : classes.container}>
-          <img src={book.imageURL} className={classes.mainImage} alt="book-cover"/>
-          <Box className={classes.descriptionsBlock}>
+          <img src={book.imageURL} className={smallQuery ? classes.mainImageResponse : classes.mainImage} alt="book-cover"/>
+          <Box className={smallQuery ? classes.descriptionsBlockResponse : classes.descriptionsBlock}>
             <Box className={classes.iconsBlock}>
               <div className={classes.iconBlock}>
                 <CoPresentIcon fontSize={'large'}/>

@@ -8,10 +8,8 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { makeStyles } from '@mui/styles';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
@@ -20,8 +18,10 @@ import { actions } from '../../../store/collections/collectionsActions';
 import { setDislikeBook, setLikeBook } from '../../../store/collections/collectionsThunk';
 
 
-type CardItemType = {
+interface ICardItem {
   image: any;
+  authors: string;
+  title: string;
   id: string;
   likes: string[];
   description: string;
@@ -40,7 +40,6 @@ const useStyles = makeStyles({
     cursor: 'pointer',
   },
   description: {
-    // background: '#f5f2f1',
     padding: '1rem',
     height: '200px',
     overflow: 'hidden',
@@ -62,7 +61,7 @@ const useStyles = makeStyles({
   }
 });
 
-export function CardItem({ image, id, likes, description, senderEmail, departureDate }: CardItemType) {
+export function CardItem({ image, id, likes, description, senderEmail, departureDate, title,authors }: ICardItem) {
 
   const classes = useStyles();
 
@@ -103,12 +102,20 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
           />
         </NavLink>
         <CardContent>
+
+            <Typography variant={'h6'} color={'#5bb75b'} gutterBottom component="div">
+              {title}
+            </Typography>
+            <Typography variant="button" gutterBottom component="div">
+              {authors}
+            </Typography>
+
           <Typography className={classes.description} gutterBottom component="div">
             {description}
           </Typography>
           <CardActions disableSpacing className={classes.mistakesBlock}>
             <ThumbUpIcon onClick={() => onLikeClickHandler(id)}/>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="subtitle1" color="text.secondary">
               {countOfLikes}
             </Typography>
             <ThumbDownIcon onClick={() => onDislikeClickHandler(id)}/>

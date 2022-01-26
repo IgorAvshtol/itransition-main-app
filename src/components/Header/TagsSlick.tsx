@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
 import Slider from 'react-slick';
@@ -7,13 +8,12 @@ import { Chip } from '@mui/material';
 import { AppRootStateType } from '../../store/store';
 
 
-type TagsType = {
+interface ITags {
   setFilter: Dispatch<SetStateAction<string | null>>;
 }
 
-export function TagsSlick({ setFilter }: TagsType) {
+export function TagsSlick({ setFilter }: ITags) {
 
-  // @ts-ignore
   const currentSections = useSelector<AppRootStateType, string[]>(state => state.collection.currentSections);
 
   let minSlides: number;
@@ -65,12 +65,12 @@ export function TagsSlick({ setFilter }: TagsType) {
   };
 
   return (
-      <div style={{ paddingTop: '20px', color:'red' }}>
+      <div style={{ paddingTop: '20px', color: 'red' }}>
         <Slider {...settings} >
           {
             currentSections.map(section => {
               return (
-                  <div>
+                  <div >
                     <Chip label={section} onClick={(e) => onTagClickHandler(e)}/>
                   </div>
               );

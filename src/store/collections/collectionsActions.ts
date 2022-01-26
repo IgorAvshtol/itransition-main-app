@@ -25,5 +25,5 @@ export const actions = {
   setUpdatePublicationAC: (updateData: IUpdateDataWithId) => ({
     type: TypesKeys.UPDATE_PUBLICATION,
     payload: updateData
-  } as const),
+  } as const)
 };

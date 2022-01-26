@@ -22,7 +22,9 @@
     "description": "Description",
     "image": "Image",
     "pages": "Pages",
-    "section": "Section"
+    "section": "Section",
+    "drag": "Drag photo here",
+    "drop": "Drop this"
   },
   "select": {
     "add_book": "Add book",
@@ -36,5 +38,8 @@
   "validation": {
     "pages_field": "Must be a number",
     "field": "Required input"
+  },
+  "search": {
+    "input": "Search"
   }
 }

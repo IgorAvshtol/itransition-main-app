@@ -21,21 +21,8 @@ export interface ICollection {
   senderEmail?: string;
   senderId?: string;
   departureDate: string;
-  comments?: IComment[];
+  comments: IComment[];
   dateUTC: number;
-}
-
-export interface IAddCollectionForm {
-  authors: string;
-  description: string;
-  imageURL: string;
-  pages: string;
-  section: string;
-  id: string;
-  likes: string[];
-  senderEmail?: string;
-  departureDate: any;
-  senderId?: string;
 }
 
 export interface ISetBook {
@@ -101,11 +88,6 @@ export interface IUpdateData {
   section: string;
 }
 
-export interface IEditMode {
-  publicationId: string;
-  editMode: boolean;
-}
-
 export interface ISetCollection {
   type: TypesKeys.SET_COLLECTION;
   payload: ICollection;
@@ -140,7 +122,6 @@ export interface ISetCurrentUserPublications {
   type: TypesKeys.SET_CURRENT_USER_PUBLICATIONS,
   payload: string;
 }
-
 
 export interface IUpdatePublication {
   type: TypesKeys.UPDATE_PUBLICATION,

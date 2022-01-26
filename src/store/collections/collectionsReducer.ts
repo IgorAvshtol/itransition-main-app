@@ -1,9 +1,4 @@
-import {
-  ActionType,
-  ICollection,
-  ICollectionState,
-  TypesKeys
-} from './collectionsTypes';
+import { ActionType, ICollection, ICollectionState, TypesKeys } from './collectionsTypes';
 
 const initialState: ICollectionState = {
   collection: [] as ICollection[],
@@ -48,10 +43,10 @@ export const collectionReducer = (state = initialState, action: ActionType): ICo
         } : n)
       };
     case TypesKeys.SET_CURRENT_BOOK:
-      const aaa = state.collection.find(book => book.id === action.payload);
+      const searchedCollection = state.collection.find(book => book.id === action.payload);
       return {
         ...state,
-        currentBook: aaa ? { ...aaa } : { ...state.currentBook }
+        currentBook: searchedCollection ? { ...searchedCollection } : { ...state.currentBook }
       };
     case TypesKeys.SET_COMMENT:
       return {
@@ -60,12 +55,12 @@ export const collectionReducer = (state = initialState, action: ActionType): ICo
             ? {
               ...book,
               comments:
-                  book.comments
-                      ?
+                  // book.comments
+                  //     ?
                       [
                         ...book.comments, action.payload.comments
                       ]
-                      : book.comments
+                      // : book.comments
             }
             : book),
         currentBook: {

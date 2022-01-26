@@ -10,6 +10,7 @@ import { makeStyles } from '@mui/styles';
 import { setCollection } from '../../store/collections/collectionsThunk';
 import { AppRootStateType } from '../../store/store';
 import { SuccessModal } from '../Alert/SuccessModal';
+import { DragDropBlock } from './DragDropBlock';
 
 
 const useStyles = makeStyles({
@@ -119,20 +120,8 @@ export const ItemForm = () => {
                       />
                       {touched.description && errors.description && <p>{errors.description}</p>}
                     </div>
-                    <div>
-                      <TextField
-                          style={{ marginTop: 10 }}
-                          type={'file'}
-                          name="image"
-                          // label={t('form.image')}
-                          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            if (event.target.files !== null) {
-                              const file = event.target.files[0];
-                              setFieldValue('file', file);
-                            }
-                          }}
-                          value={undefined}
-                      />
+                    <div style={{marginTop: '10px', display: 'flex', justifyContent:'center'}}>
+                      <DragDropBlock setFieldValue={setFieldValue}/>
                     </div>
                     <div>
                       <TextField
