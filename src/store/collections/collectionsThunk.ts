@@ -1,7 +1,17 @@
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
-import { collection, doc, getDocs, getFirestore, arrayUnion, updateDoc, arrayRemove, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDocs,
+  getFirestore,
+  arrayUnion,
+  updateDoc,
+  arrayRemove,
+  setDoc,
+  getDoc
+} from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import {
@@ -17,7 +27,7 @@ import { actions } from './collectionsActions';
 import { actionsAlert } from '../alert/alertActions';
 
 
-export const setUsersCollections = (): ThunkAction<void, AppRootStateType, null, ActionType> => {
+export const getUsersCollections = (): ThunkAction<void, AppRootStateType, null, ActionType> => {
   return async (dispatch: Dispatch) => {
     const db = getFirestore();
     const collections = await getDocs(collection(db, 'books'));
@@ -53,8 +63,35 @@ export const setUsersCollections = (): ThunkAction<void, AppRootStateType, null,
         dateUTC: dateUTC
       };
       dispatch(actions.setCurrentSectionsAC(section));
-      dispatch(actions.setCollectionAC(collection));
+      dispatch(actions.getCollectionAC(collection));
     });
+  };
+};
+
+export const getCurrentBook = (bookId: string): ThunkAction<void, AppRootStateType, null, ActionType> => {
+  return async (dispatch: Dispatch) => {
+    const db = getFirestore();
+    const docRef = doc(db, 'books',`${bookId}`);
+    const docSnap = await getDoc(docRef);
+    const book = docSnap.data();
+    if (book) {
+      const currentBook: ICollection = {
+        authors: book.authors,
+        title: book.title,
+        description: book.description,
+        imageURL: book.imageURL,
+        pages: book.pages,
+        section: book.section,
+        id: book.id,
+        likes: book.likes,
+        senderEmail: book.senderEmail,
+        senderId: book.senderId,
+        departureDate: book.departureDate,
+        comments: book.comments,
+        dateUTC: book.dateUTC
+      };
+      dispatch(actions.getCurrentBookAC(currentBook));
+    }
   };
 };
 
@@ -144,7 +181,7 @@ export const setCollection = (data: ISetBook): ThunkAction<void, AppRootStateTyp
               dateUTC: new Date().getTime()
             };
             setDoc(refCollection, bookData);
-            dispatch(actions.setCollectionAC(bookData));
+            dispatch(actions.getCollectionAC(bookData));
             if (bookData.senderId) {
               dispatch(actions.setCurrentUserPublicationsAC(bookData.senderId));
             }

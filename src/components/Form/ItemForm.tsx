@@ -45,7 +45,6 @@ export const ItemForm = () => {
 
   const dispatch = useDispatch();
 
-  // @ts-ignore
   const sections = useSelector<AppRootStateType, string[]>(state => state.collection.sections);
 
   const validationSchema = yup.object().shape({

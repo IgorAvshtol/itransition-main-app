@@ -26,6 +26,10 @@
     "drag": "Drag photo here",
     "drop": "Drop this"
   },
+  "comments": {
+    "placeholder": "Enter your text",
+    "button": "Send"
+  },
   "select": {
     "add_book": "Add book",
     "my_publications": "My publications",

@@ -11,6 +11,8 @@ import { CommentsPage } from '../../CommentsPage/CommentsPage';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import { useEffect } from 'react';
+import { getCurrentBook } from '../../../store/collections/collectionsThunk';
 
 const useStyles = makeStyles({
   container: {
@@ -72,16 +74,13 @@ export function ItemPage() {
 
   const { bookId } = useParams();
 
-  const book = useSelector<AppRootStateType, ICollection>(state => state.collection.currentBook);
-
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (bookId) {
-  //     dispatch(actions.setCurrentBookAC(bookId));
-  //   }
-  // }, [book.comments]);
+  useEffect(() => {
+    dispatch(getCurrentBook(bookId!));
+  }, []);
 
+  const book = useSelector<AppRootStateType, ICollection>(state => state.collection.currentBook);
 
   return (
       <Container maxWidth={'xl'}>
@@ -108,8 +107,11 @@ export function ItemPage() {
                 </Typography>
               </div>
             </Box>
-            <Typography sx={{paddingTop: '20px', textAlign: 'center'}} variant={'h6'} gutterBottom component="div">
+            <Typography sx={{paddingTop: '20px', textAlign: 'center'}} color={'#5bb75b'} variant={'h6'} gutterBottom component="div">
               {book.title}
+            </Typography>
+            <Typography variant="button" textAlign={'center'} gutterBottom component="div">
+              {book.authors}
             </Typography>
             <Box className={classes.description}>
               <Typography gutterBottom component="div">

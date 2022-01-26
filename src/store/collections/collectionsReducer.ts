@@ -21,7 +21,7 @@ const initialState: ICollectionState = {
 
 export const collectionReducer = (state = initialState, action: ActionType): ICollectionState => {
   switch (action.type) {
-    case TypesKeys.SET_COLLECTION:
+    case TypesKeys.GET_COLLECTION:
       return {
         ...state,
         collection: [...state.collection, action.payload]
@@ -48,6 +48,11 @@ export const collectionReducer = (state = initialState, action: ActionType): ICo
         ...state,
         currentBook: searchedCollection ? { ...searchedCollection } : { ...state.currentBook }
       };
+    case TypesKeys.GET_CURRENT_BOOK:
+      return {
+        ...state,
+        currentBook: action.payload
+      };
     case TypesKeys.SET_COMMENT:
       return {
         ...state,
@@ -55,12 +60,9 @@ export const collectionReducer = (state = initialState, action: ActionType): ICo
             ? {
               ...book,
               comments:
-                  // book.comments
-                  //     ?
-                      [
-                        ...book.comments, action.payload.comments
-                      ]
-                      // : book.comments
+                  [
+                    ...book.comments, action.payload.comments
+                  ]
             }
             : book),
         currentBook: {

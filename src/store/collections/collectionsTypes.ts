@@ -1,7 +1,8 @@
 export enum TypesKeys {
-  SET_COLLECTION = 'SET_COLLECTION',
+  GET_COLLECTION = 'GET_COLLECTION',
   CURRENT_BOOK_HAS_LIKED = 'CURRENT_BOOK_HAS_LIKED',
   SET_CURRENT_BOOK = 'SET_CURRENT_BOOK',
+  GET_CURRENT_BOOK = 'GET_CURRENT_BOOK',
   CURRENT_BOOK_HAS_DISLIKED = 'CURRENT_BOOK_HAS_DISLIKED',
   SET_COMMENT = 'SET_COMMENT',
   SET_CURRENT_SECTIONS = 'SET_CURRENT_SECTIONS',
@@ -88,8 +89,8 @@ export interface IUpdateData {
   section: string;
 }
 
-export interface ISetCollection {
-  type: TypesKeys.SET_COLLECTION;
+export interface IGetCollection {
+  type: TypesKeys.GET_COLLECTION;
   payload: ICollection;
 }
 
@@ -103,9 +104,14 @@ export interface ICurrentUserSetDisliked {
   payload: ILikeData;
 }
 
-export interface IGetCurrentBook {
+export interface ISetCurrentBook {
   type: TypesKeys.SET_CURRENT_BOOK;
   payload: string;
+}
+
+export interface IGetCurrentBook {
+  type: TypesKeys.GET_CURRENT_BOOK;
+  payload: ICollection;
 }
 
 export interface ISetComment {
@@ -128,9 +134,10 @@ export interface IUpdatePublication {
   payload: IUpdateDataWithId;
 }
 
-export type ActionType = ISetCollection
+export type ActionType = IGetCollection
     | ICurrentUserSetLiked
-    | IGetCurrentBook
+    | ISetCurrentBook
+    |IGetCurrentBook
     | ICurrentUserSetDisliked
     | ISetComment
     | ISetCurrentSections

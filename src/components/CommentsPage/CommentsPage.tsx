@@ -7,6 +7,7 @@ import { setCommentThunk } from '../../store/collections/collectionsThunk';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
 import { AppRootStateType } from '../../store/store';
+import { useTranslation } from 'react-i18next';
 
 
 const useStyles = makeStyles({
@@ -45,6 +46,8 @@ interface ICommentsPage {
 }
 
 export function CommentsPage({ comments, id }: ICommentsPage) {
+
+  const { t } = useTranslation();
 
   const smallQuery = useMediaQuery('(max-width:550px)');
 
@@ -98,9 +101,9 @@ export function CommentsPage({ comments, id }: ICommentsPage) {
             }
           </div>
           <Grid container direction={'column'} alignItems={'flex-end'}>
-            <TextField placeholder={'Напишите отзыв'} onChange={onInputChangeHandler} value={commentText} fullWidth
+            <TextField placeholder={t('comments.placeholder')} onChange={onInputChangeHandler} value={commentText} fullWidth
                        maxRows={2} variant={'outlined'}/>
-            <Button onClick={onClickButtonHandler}>Отправить</Button>
+            <Button onClick={onClickButtonHandler}>{t('comments.button')}</Button>
           </Grid>
         </Grid>
       </Container>

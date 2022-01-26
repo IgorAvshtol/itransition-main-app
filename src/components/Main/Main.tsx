@@ -72,12 +72,10 @@ export function Main() {
         <TagsSlick setFilter={setFilter}/>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <SearchInput search={search} setSearch={setSearch}/>
-
         </div>
         <div className={smallQuery ? classes.queryRootCard : classes.rootCard}>
           {filterTasks(searchCollection).map((book) => {
             return (
-
                 <CardItem image={book.imageURL}
                           authors={book.authors}
                           title={book.title}

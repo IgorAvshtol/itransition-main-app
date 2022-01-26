@@ -61,7 +61,7 @@ const useStyles = makeStyles({
   }
 });
 
-export function CardItem({ image, id, likes, description, senderEmail, departureDate, title,authors }: ICardItem) {
+export function CardItem({ image, id, likes, description, senderEmail, departureDate, title, authors }: ICardItem) {
 
   const classes = useStyles();
 
@@ -81,7 +81,7 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
     dispatch(actions.setCurrentBookAC(id));
   };
 
-  const avatarLetter = senderEmail?.toUpperCase().split('').splice(0,1).join();
+  const avatarLetter = senderEmail?.toUpperCase().split('').splice(0, 1).join();
 
   return (
       <Card className={classes.card}>
@@ -102,14 +102,12 @@ export function CardItem({ image, id, likes, description, senderEmail, departure
           />
         </NavLink>
         <CardContent>
-
-            <Typography variant={'h6'} color={'#5bb75b'} gutterBottom component="div">
-              {title}
-            </Typography>
-            <Typography variant="button" gutterBottom component="div">
-              {authors}
-            </Typography>
-
+          <Typography variant={'h6'} color={'#5bb75b'} gutterBottom component="div">
+            {title}
+          </Typography>
+          <Typography variant="button" gutterBottom component="div">
+            {authors}
+          </Typography>
           <Typography className={classes.description} gutterBottom component="div">
             {description}
           </Typography>
