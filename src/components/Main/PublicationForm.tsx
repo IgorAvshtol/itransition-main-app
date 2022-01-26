@@ -13,7 +13,7 @@ import EditOffIcon from '@mui/icons-material/EditOff';
 
 import { editPublication } from '../../store/collections/collectionsThunk';
 import { AppRootStateType } from '../../store/store';
-import { IconContent } from './Item/IconContent';
+import { IconContentForm } from './Item/IconContentForm';
 import { ICurrentUserPublications, IUpdateData } from '../../store/collections/collectionsTypes';
 
 const useStyles = makeStyles({
@@ -53,11 +53,11 @@ const useStyles = makeStyles({
   }
 });
 
-type PublicationType = {
+interface IPublication {
   publication: ICurrentUserPublications;
 }
 
-export const PublicationForm = ({ publication }: PublicationType) => {
+export const PublicationForm = ({ publication }: IPublication) => {
 
   const { t } = useTranslation();
 
@@ -112,7 +112,7 @@ export const PublicationForm = ({ publication }: PublicationType) => {
                   <img src={publication.imageURL} className={classes.mainImage} alt="book-cover"/>
                   <Box className={classes.descriptionsBlock}>
                     <Box className={classes.iconsBlock}>
-                      <IconContent
+                      <IconContentForm
                           book={publication}
                           edit={editMode}
                           handleChange={handleChange}
@@ -130,13 +130,14 @@ export const PublicationForm = ({ publication }: PublicationType) => {
                                 style={{ marginTop: 20, textAlign: 'center'}}
                                 name="title"
                                 label={t('form.name')}
+                                fullWidth
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.title}
                             />
                             {touched.title && errors.title && <p>{errors.title}</p>}
                           </div>
-                          : <Typography sx={{paddingTop: '20px', textAlign: 'center'}} gutterBottom component="div">
+                          : <Typography sx={{paddingTop: '20px', textAlign: 'center'}} variant={'h6'} gutterBottom component="div">
                             {publication.title}
                           </Typography>
                     }
@@ -157,8 +158,8 @@ export const PublicationForm = ({ publication }: PublicationType) => {
                               />
                               {touched.description && errors.description && <p>{errors.description}</p>}
                             </div>
-                            : <Typography gutterBottom variant={'h4'} sx={{textAlign: 'center'}} component="div">
-                              {publication.title}
+                            : <Typography gutterBottom sx={{textAlign: 'center'}} component="div">
+                              {publication.description}
                             </Typography>
                       }
                       <div>

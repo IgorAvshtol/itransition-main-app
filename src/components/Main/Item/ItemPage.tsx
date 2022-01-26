@@ -10,6 +10,10 @@ import { AppRootStateType } from '../../../store/store';
 import { ICollection } from '../../../store/collections/collectionsTypes';
 import { actions } from '../../../store/collections/collectionsActions';
 import { CommentsPage } from '../../CommentsPage/CommentsPage';
+import { IconContentForm } from './IconContentForm';
+import CoPresentIcon from '@mui/icons-material/CoPresent';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 
 const useStyles = makeStyles({
   container: {
@@ -35,8 +39,14 @@ const useStyles = makeStyles({
     justifyContent: 'space-between'
   },
   iconsBlock: {
+    paddingTop: '20px',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'space-around'
+  },
+  iconBlock: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   description: {
     width:'100%',
@@ -58,11 +68,11 @@ export function ItemPage() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (bookId) {
-      dispatch(actions.setCurrentBookAC(bookId));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (bookId) {
+  //     dispatch(actions.setCurrentBookAC(bookId));
+  //   }
+  // }, [book.comments]);
 
 
   return (
@@ -71,7 +81,28 @@ export function ItemPage() {
           <img src={book.imageURL} className={classes.mainImage} alt="book-cover"/>
           <Box className={classes.descriptionsBlock}>
             <Box className={classes.iconsBlock}>
+              <div className={classes.iconBlock}>
+                <CoPresentIcon fontSize={'large'}/>
+                <Typography gutterBottom component="div">
+                  {book.authors}
+                </Typography>
+              </div>
+              <div className={classes.iconBlock}>
+                <AutoStoriesIcon fontSize={'large'}/>
+                <Typography gutterBottom component="div">
+                  {book.pages}
+                </Typography>
+              </div>
+              <div className={classes.iconBlock}>
+                <ContentPasteSearchIcon fontSize={'large'}/>
+                <Typography gutterBottom component="div">
+                  {book.section}
+                </Typography>
+              </div>
             </Box>
+            <Typography sx={{paddingTop: '20px', textAlign: 'center'}} variant={'h6'} gutterBottom component="div">
+              {book.title}
+            </Typography>
             <Box className={classes.description}>
               <Typography gutterBottom component="div">
                 {book.description}

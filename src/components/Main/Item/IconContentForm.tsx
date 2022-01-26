@@ -40,7 +40,7 @@ type IconContentType = {
   sections: string[]
 }
 
-export function IconContent({
+export function IconContentForm({
                               book,
                               edit,
                               handleBlur,

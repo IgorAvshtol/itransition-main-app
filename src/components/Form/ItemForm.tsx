@@ -53,7 +53,6 @@ export const ItemForm = () => {
     pages: yup.number().typeError(t('validation.pages_field')).required(t('validation.field')),
   });
 
-
   return (
       <div style={{paddingTop:'20px'}}>
         <Formik

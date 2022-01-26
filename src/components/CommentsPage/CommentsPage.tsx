@@ -2,7 +2,7 @@ import { Box, Button, Container, Grid, TextField, useMediaQuery } from '@mui/mat
 import Typography from '@mui/material/Typography';
 import { IComment } from '../../store/collections/collectionsTypes';
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { setCommentThunk } from '../../store/collections/collectionsThunk';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
@@ -39,12 +39,12 @@ const useStyles = makeStyles({
   }
 });
 
-type CommentsPageType = {
+interface ICommentsPage {
   comments?: IComment[];
   id: string
 }
 
-export function CommentsPage({ comments, id }: CommentsPageType) {
+export function CommentsPage({ comments, id }: ICommentsPage) {
 
   const smallQuery = useMediaQuery('(max-width:550px)');
 

@@ -6,7 +6,6 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import {
   ActionType,
-  IAddCollectionForm,
   ICollection,
   IComment,
   ISetBook,
@@ -138,6 +137,7 @@ export const setCollection = (data: ISetBook): ThunkAction<void, AppRootStateTyp
               section: data.section,
               id: refCollection.id,
               likes: [],
+              comments: [],
               senderEmail: userEmail,
               senderId: userId,
               departureDate: `${yearAndMonth} ${hoursAndMinutes}`,
