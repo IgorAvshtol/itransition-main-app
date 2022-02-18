@@ -134,10 +134,11 @@ export interface IUpdatePublication {
   payload: IUpdateDataWithId;
 }
 
+
 export type ActionType = IGetCollection
     | ICurrentUserSetLiked
     | ISetCurrentBook
-    |IGetCurrentBook
+    | IGetCurrentBook
     | ICurrentUserSetDisliked
     | ISetComment
     | ISetCurrentSections

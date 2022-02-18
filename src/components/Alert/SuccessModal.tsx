@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -26,12 +26,14 @@ export function SuccessModal() {
   const success = useSelector<AppRootStateType, boolean>(state => state.alert.success);
   const error = useSelector<AppRootStateType, boolean>(state => state.alert.error);
 
-  const [openSuccessAlert, setOpenSuccessAlert] = React.useState(false);
-  const [openErrorAlert, setOpenErrorAlert] = React.useState(false);
+  const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
+  const [openErrorAlert, setOpenErrorAlert] = useState(false);
 
   useEffect(() => {
     success && setOpenSuccessAlert(true);
+
     error && setOpenErrorAlert(true);
+
     setTimeout(() => {
       dispatch(actionsAlert.setSuccess(false));
       dispatch(actionsAlert.setError(false));

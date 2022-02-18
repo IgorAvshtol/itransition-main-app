@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -16,6 +16,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 import { actions } from '../../../store/collections/collectionsActions';
 import { setDislikeBook, setLikeBook } from '../../../store/collections/collectionsThunk';
+import { AppRootStateType } from '../../../store/store';
 
 
 interface ICardItem {

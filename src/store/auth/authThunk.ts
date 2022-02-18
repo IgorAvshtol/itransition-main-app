@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, si
 
 import { AppRootStateType } from '../store';
 import { ActionType, ISignInData, ISignUpData, IUser } from './authTypes';
-import { actions } from './authActions';
+import { actionsAuth } from './authActions';
 
 export const signup = (data: ISignUpData): ThunkAction<void, AppRootStateType, null, ActionType> => {
   return (dispatch: Dispatch) => {
@@ -24,13 +24,13 @@ export const signup = (data: ISignUpData): ThunkAction<void, AppRootStateType, n
               id: user.uid,
             };
             setDoc(ref, { userData });
-            dispatch(actions.setUserAC(userData));
-            dispatch(actions.setLoadingAC(false));
+            dispatch(actionsAuth.setUserAC(userData));
+            dispatch(actionsAuth.setLoadingAC(false));
           }
 
         })
         .catch((error) => {
-          dispatch(actions.setErrorAC(error.message));
+          dispatch(actionsAuth.setErrorAC(error.message));
         });
   };
 };
@@ -46,7 +46,7 @@ export const getUserById = (id: string): ThunkAction<void, AppRootStateType, nul
         firstName: docSnap.data().userData.firstName,
         id: docSnap.data().userData.id,
       };
-      dispatch(actions.setUserAC(userData));
+      dispatch(actionsAuth.setUserAC(userData));
     } else {
       console.log('No such document!');
     }
@@ -59,10 +59,10 @@ export const signIn = (data: ISignInData): ThunkAction<void, AppRootStateType, n
     signInWithEmailAndPassword(auth, data.email, data.password)
         .then((userCredential) => {
           const user = userCredential.user;
-          dispatch(actions.setAuthenticatedAC(true));
+          dispatch(actionsAuth.setAuthenticatedAC(true));
         })
         .catch((error) => {
-          dispatch(actions.setErrorAC(error.message));
+          dispatch(actionsAuth.setErrorAC(error.message));
         });
   };
 };
@@ -72,7 +72,7 @@ export const logOut = (): ThunkAction<void, AppRootStateType, null, ActionType> 
     try {
       const auth = getAuth();
       await signOut(auth);
-      dispatch(actions.setLogOutAC());
+      dispatch(actionsAuth.setLogOutAC());
     } catch (error) {
       console.log(error);
     }

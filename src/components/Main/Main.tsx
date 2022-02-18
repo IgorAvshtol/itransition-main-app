@@ -85,12 +85,10 @@ export function Main() {
                           departureDate={book.departureDate}
                           description={book.description}
                 />
-
             );
           })}
         </div>
       </Box>
-
   );
 }
 

@@ -16,7 +16,7 @@ const initialState: ICollectionState = {
   currentSections: [
     'Все'
   ],
-  currentUserPublications: [] as ICollection[],
+  currentUserPublications: [] as ICollection[]
 };
 
 export const collectionReducer = (state = initialState, action: ActionType): ICollectionState => {
@@ -87,7 +87,7 @@ export const collectionReducer = (state = initialState, action: ActionType): ICo
         collection: state.collection.map(book => book.id === action.payload.publicationId
             ? {
               ...book,
-              author: action.payload.author,
+              authors: action.payload.author,
               description: action.payload.description,
               pages: action.payload.pages,
               section: action.payload.section,

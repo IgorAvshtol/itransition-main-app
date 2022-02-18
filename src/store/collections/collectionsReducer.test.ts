@@ -71,7 +71,6 @@ beforeEach(() => {
       'Все'
     ],
     currentUserPublications: [] as ICollection[],
-    tagOfSearch: ''
   };
 
   newCollection = {

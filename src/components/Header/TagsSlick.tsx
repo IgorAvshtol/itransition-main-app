@@ -70,7 +70,7 @@ export function TagsSlick({ setFilter }: ITags) {
           {
             currentSections.map(section => {
               return (
-                  <div >
+                  <div key={section}>
                     <Chip label={section} onClick={(e) => onTagClickHandler(e)}/>
                   </div>
               );
