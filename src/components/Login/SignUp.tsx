@@ -8,7 +8,7 @@ import { makeStyles } from '@mui/styles';
 
 import { signup } from '../../store/auth/authThunk';
 import { AppRootStateType } from '../../store/store';
-import { actions } from '../../store/auth/authActions';
+import { actionsAuth } from '../../store/auth/authActions';
 
 const useStyles = makeStyles({
   signUpForm: {
@@ -37,15 +37,15 @@ export function SignUp() {
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(actions.setLoadingAC(true));
+    dispatch(actionsAuth.setLoadingAC(true));
     dispatch(signup({ email, password, firstName }));
   };
 
   useEffect(() => {
     return () => {
       if (error) {
-        dispatch(actions.setErrorAC(''));
-        dispatch(actions.setLoadingAC(false));
+        dispatch(actionsAuth.setErrorAC(''));
+        dispatch(actionsAuth.setLoadingAC(false));
       }
     };
   }, [error, dispatch]);

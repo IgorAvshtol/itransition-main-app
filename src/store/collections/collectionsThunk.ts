@@ -25,11 +25,13 @@ import {
 import { AppRootStateType, store } from '../store';
 import { actions } from './collectionsActions';
 import { actionsAlert } from '../alert/alertActions';
+import { actionsAuth } from '../auth/authActions';
 
 
 export const getUsersCollections = (): ThunkAction<void, AppRootStateType, null, ActionType> => {
   return async (dispatch: Dispatch) => {
     const db = getFirestore();
+    dispatch(actionsAuth.setLoadingAC(true));
     const collections = await getDocs(collection(db, 'books'));
     collections.forEach((doc) => {
       const {
@@ -65,13 +67,14 @@ export const getUsersCollections = (): ThunkAction<void, AppRootStateType, null,
       dispatch(actions.setCurrentSectionsAC(section));
       dispatch(actions.getCollectionAC(collection));
     });
+    dispatch(actionsAuth.setLoadingAC(false));
   };
 };
 
 export const getCurrentBook = (bookId: string): ThunkAction<void, AppRootStateType, null, ActionType> => {
   return async (dispatch: Dispatch) => {
     const db = getFirestore();
-    const docRef = doc(db, 'books',`${bookId}`);
+    const docRef = doc(db, 'books', `${bookId}`);
     const docSnap = await getDoc(docRef);
     const book = docSnap.data();
     if (book) {

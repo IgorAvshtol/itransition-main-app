@@ -8,7 +8,7 @@ import { makeStyles } from '@mui/styles';
 import { signIn } from '../../store/auth/authThunk';
 import { useTranslation } from 'react-i18next';
 import { AppRootStateType } from '../../store/store';
-import { actions } from '../../store/auth/authActions';
+import { actionsAuth } from '../../store/auth/authActions';
 
 const useStyles = makeStyles({
   signInForm: {
@@ -43,8 +43,8 @@ export function SignIn() {
   useEffect(() => {
     return () => {
       if (error) {
-        dispatch(actions.setErrorAC(''));
-        dispatch(actions.setLoadingAC(false));
+        dispatch(actionsAuth.setErrorAC(''));
+        dispatch(actionsAuth.setLoadingAC(false));
       }
     };
   }, [error, dispatch]);
