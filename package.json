@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://itransition-main-app.herokuapp.com/",
   "engines": {
-    "node": "16.x"
+    "node": "16.13.1"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
