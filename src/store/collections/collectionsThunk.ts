@@ -235,7 +235,7 @@ export const editPublication = (publicationId: string, updateData: IUpdateData):
       const db = getFirestore();
       const ref = doc(db, 'books', `${publicationId}`);
       await updateDoc(ref, {
-        author: updateData.author,
+        authors: updateData.author,
         description: updateData.description,
         pages: updateData.pages,
         section: updateData.section
